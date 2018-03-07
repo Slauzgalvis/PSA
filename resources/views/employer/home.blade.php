@@ -14,10 +14,11 @@
                         </div>
                     @endif
 
-                    You are logged in as admin
+                    You are logged in as employer
                 </div>
             </div>
         </div>
+ 
     </div>
 </div>
 @endsection
