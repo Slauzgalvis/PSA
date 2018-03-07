@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        
+
         @foreach ($ads as $ad)
     
          <div class="col-md-8">
