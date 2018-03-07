@@ -4,7 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class People extends Model
+class workAd extends Model
 {
-    //
+	
 }
+
+

@@ -1,24 +1,26 @@
 <?php
 
+Auth::routes();
+
+Route::get('/',function (){return view('welcome');});
+
+Route::get('/home','HomeController@index')->name('home');
+
+Route::get('/home/workad/{workAd}', 'HomeController@workAd')->name('workAd');
+
+Route::get('/home/company/{company}', 'HomeController@company')->name('company');
+
+
+Route::get('/home/create/workad', 'WorkAdController@index');
+Route::post('/home/create/workad', 'WorkAdController@create')->name('createWorkAd');
+
+
+Route::get('/home/edit/workad/{workAd}', 'WorkAdController@editindex')->name('editWorkAd');
+Route::post('/home/edit/workad/{workAd}', 'WorkAdController@editindex')->name('editWorkAd2');
+//Route::post('/home/edit/workad', 'WorkAdController@edit');
+
+Route::get('/home/delete/workad/{workAd}', 'WorkAdController@delete')->name('deleteWorkAd');
+
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
+Route::post('/home/workad/delete/', 'WorkAdController@delete')->name('deleteWorkAd');
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

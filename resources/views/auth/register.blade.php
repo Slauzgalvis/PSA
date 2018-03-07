@@ -29,9 +29,9 @@
                             <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
 
                             <div class="col-md-6">
-                                <input id="role1" type="radio" name="role" value="Worker" checked>
+                                <input id="role1" type="radio" name="role" value="worker" checked>
                                 <label for="role1">Worker</label> <br>
-                                <input id="role2" type="radio" name="role" value="Employer">
+                                <input id="role2" type="radio" name="role" value="employer">
                                 <label for="role2">Employer</label>
                             </div>
                         </div>
