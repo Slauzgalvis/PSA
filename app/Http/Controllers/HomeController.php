@@ -32,11 +32,15 @@ class HomeController extends Controller
             $ads = workAd::all();
             $data = compact('ads');
        }
+        else if(Auth::user()->role == "employer"){
+            $ads = workAd::where('user_id',  Auth::user()->id)->get();
+            $data = compact('ads');
+       }
         
        return view($route, $data);
     }
      public function workAd(workAd $workAd){
-        if(Auth::user()->role == "worker"){
+        if(Auth::user()->role == "worker" || $workAd->user_id == Auth::user()->id){
            return view('worker.workad',compact('workAd'));        
        }
        else
