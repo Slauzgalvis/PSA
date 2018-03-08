@@ -19,6 +19,7 @@
                 </div>
             </div>
         </div>
+       @if (count($ads) > 0)
   @foreach ($ads as $ad)
     
          <div class="col-md-8">
@@ -29,7 +30,7 @@
                 <div class="card-body">
 
                      {{ $ad }}
-                     <a href="/home/company/{{$ad->user_id}}"> {{$ad->name}} </a>
+                    
                   
                   <a href="/home/edit/workad/{{$ad->id}}">edit</a>
                   <a href="/home/delete/workad/{{$ad->id}}">delete</a>
@@ -38,6 +39,7 @@
             </div>
         </div>
            @endforeach
+           @endif
 
     </div>
 </div>

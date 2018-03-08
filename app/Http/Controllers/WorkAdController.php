@@ -18,39 +18,33 @@ class WorkAdController extends Controller
     public function index()
     {        
       if(Auth::user()->role == "employer"){
-           return view('employer.createworkad',compact('workAd'));        
-       }
-       else
-       {
+        return view('employer.createworkad',compact('workAd'));        
+      }
+      else
+      {
         return back();
-       }
+      }
     }
+
     public function create()
     {        
-        if(Auth::user()->role == "employer"){
-
+      if(Auth::user()->role == "employer")
+        {
         $newAd = new workAd;
         $newAd->user_id = Auth::user()->id;
         $newAd->name = request('name');
         $newAd->about = request('about');
         $newAd->city = request('city');
         $newAd->technologies = request('technologies');
-
-        //
-         $newAd->type = 1;
-         $newAd->duration = 1;
-          $newAd->status = 1;
-
-        //
-
-
+        $newAd->type = 1;
+        $newAd->duration = 1;
+        $newAd->status = 1;
         $newAd->save();
         return redirect()->route('home');
-       }
-       else{
+      }   
+      else{
         return back();
-       }
-        
+      }
     }
      public function edit()
     {        
