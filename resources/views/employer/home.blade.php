@@ -18,7 +18,7 @@
         </div>
       </div>
     </div>
-    @if (count($ads) > 0)
+    @if($ads->count())
     @foreach ($ads as $ad)
     
     <div class="col-md-8">
@@ -51,7 +51,7 @@
 
 <script type="text/javascript">
   function confirm_alert(node) {
-    return confirm("Do you want to delete [{{$ad->name}}] work ad?");
+    return confirm("Do you want to delete this work ad?");
   }
 </script>
 @endsection

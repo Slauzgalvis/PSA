@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use WorkIT\workAd;
 use Auth;
 use WorkIT\User;
+use Image;
 
 class ProfileController extends Controller
 {
@@ -21,6 +22,22 @@ class ProfileController extends Controller
 				$user = User::where('id', Auth::user()->id)->first();
 				$user->name = request('name');
 				$user->email = request('email');
+				$user->webpage = request('webpage');
+				$user->phone = request('phone');
+				$user->about = request('about');
+
+			if($request->hasFile('avatar')){
+				$avatar = $request->file('avatar');
+				$filename = time() . '.' . $avatar->getClientOriginalExtension();
+					Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
+					$user->avatar = $filename;
+				}
+
+
+
+				
+
+
 				$user->save();
 				return redirect()->route('home');
 			}
