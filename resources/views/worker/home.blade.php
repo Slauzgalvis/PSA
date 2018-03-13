@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Worker Window</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,8 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in as worker
+                    All Work Ads
                 </div>
             </div>
         </div>
@@ -22,15 +21,20 @@
     
          <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{$ad->name}}</div>
-                 <a href="/home/workad/{{$ad->id}}"> {{$ad->name}} </a>
+                <div class="card-header"></div>
+                <div class="company">
+                 {{$ad->name}}
+             </div>
 
                 <div class="card-body">
-
-                     {{ $ad }}
-                     <a href="/home/company/{{$ad->user_id}}"> {{$ad->name}} </a>
-                  
-
+                    <p class="max-lines">{{ $ad->about }}</p>
+                     
+                    <br>
+                    <div style="text-align: right">
+                        <a href="/home/workad/{{$ad->id}}" class="btn btn-info">view</a>
+                        <a href="/home/company/{{$ad->user_id}}" class="btn btn-info"> about company </a>
+                    </div>
+                     
                 </div>
             </div>
         </div>

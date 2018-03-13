@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace WorkIT\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\workAd;
+use WorkIT\workAd;
 use Auth;
-use App\User;
+use WorkIT\User;
 
 class HomeController extends Controller
 {
@@ -39,9 +39,10 @@ class HomeController extends Controller
         
        return view($route, $data);
     }
-     public function workAd(workAd $workAd){
+     public function workAd(workAd $workAd, User $company){
         if(Auth::user()->role == "worker" || $workAd->user_id == Auth::user()->id){
-           return view('worker.workad',compact('workAd'));        
+          $user = User::where('id', $workAd->user_id)->first();
+           return view('worker.workad',compact('workAd','user'));        
        }
        else
        {
@@ -51,7 +52,8 @@ class HomeController extends Controller
     }
      public function company(User $company){
         if(Auth::user()->role == "worker"){
-            $ads = workAd::find($company->id)::all();
+          
+            $ads = workAd::where('user_id',  $company->id)->get();
            return view('worker.company',compact('company','ads'));        
        }
        else
