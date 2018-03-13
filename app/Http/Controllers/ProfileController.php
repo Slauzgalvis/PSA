@@ -37,4 +37,17 @@ class ProfileController extends Controller
 		}
 
 	}
+	public function view()
+	{
+			if(Auth::user()->role == "employer"){
+				$company = User::where('id', Auth::user()->id)->first();
+            return view('employer.profile',compact('company'));                    
+			}
+			else
+			{
+				return back();
+			}
+		
+
+	}
 }
