@@ -48,6 +48,9 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+                                    @if(Auth::user()->role == 'employer') 
+                                     <a class="dropdown-item" href="{{ route('profile') }}" >Profile</a>
+                                     @endif
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
