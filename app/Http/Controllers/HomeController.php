@@ -29,7 +29,7 @@ class HomeController extends Controller
        $route = Auth::user()->role . '\home';
        $data = [];
        if(Auth::user()->role == "worker"){
-            $ads = workAd::all();
+            $ads = workAd::paginate(2);
             $data = compact('ads');
        }
         else if(Auth::user()->role == "employer"){

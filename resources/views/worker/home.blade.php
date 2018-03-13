@@ -17,9 +17,10 @@
                 </div>
             </div>
         </div>
+<div class="col-md-8">
         @foreach ($ads as $ad)
     
-         <div class="col-md-8">
+         
             <div class="card">
                 <div class="card-header"></div>
                 <div class="company">
@@ -37,8 +38,13 @@
                      
                 </div>
             </div>
-        </div>
+
            @endforeach
+           {{ $ads->links() }}
+       </div>
+
+
     </div>
+
 </div>
 @endsection
