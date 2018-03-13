@@ -2,46 +2,57 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">Employer Window</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in as employer
-                      <a href="/home/create/workad">Create New </a>
-                </div>
-            </div>
+        <div class="card-body">
+          @if (session('status'))
+          <div class="alert alert-success">
+            {{ session('status') }}
+          </div>
+          @endif
+          <a class="btn btn-warning float-right" href="/home/edit/profile">Edit Profile </a>
+          <a class="btn btn-success" href="/home/create/workad">Create Ad</a>
         </div>
-       @if (count($ads) > 0)
-  @foreach ($ads as $ad)
-    
-         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{$ad->name}}</div>
-                 <a href="/home/workad/{{$ad->id}}"> {{$ad->name}} </a>
-
-                <div class="card-body">
-
-                     {{ $ad }}
-                    
-                  
-                  <a href="/home/edit/workad/{{$ad->id}}">edit</a>
-                  <a href="/home/delete/workad/{{$ad->id}}">delete</a>
-
-                </div>
-            </div>
-        </div>
-           @endforeach
-           @endif
-
+      </div>
     </div>
+    @if (count($ads) > 0)
+    @foreach ($ads as $ad)
+    
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header"></div>
+        <div class="company">  {{$ad->name}} </div>
+
+        <div class="card-body">
+
+         <p class="max-lines"> {{ $ad->about }} </p>
+         
+         <br>
+         <div style="text-align: right">
+          <a href="/home/workad/{{$ad->id}}" class="btn btn-info">view</a>
+          <a href="/home/edit/workad/{{$ad->id}}" class="btn btn-warning">edit</a>
+          <a onclick="return confirm_alert(this);" href="/home/delete/workad/{{$ad->id}}"  class="btn btn-danger">delete</a>  
+        </div>
+        
+        <br>
+        
+
+      </div>
+    </div>
+  </div>
+  @endforeach
+  @endif
+
 </div>
+</div>
+
+<script type="text/javascript">
+  function confirm_alert(node) {
+    return confirm("Do you want to delete [{{$ad->name}}] work ad?");
+  }
+</script>
 @endsection
 

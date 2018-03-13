@@ -6,16 +6,26 @@
     
          <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{$workAd->name}}</div>
+                <div class="card-header company">{{$workAd->name}}</div>
 
                 <div class="card-body">
-
-                     {{ $workAd }}
+                    Company: {{$user->name}}
+                    <br><br>
+                     {{ $workAd->about }}
+                     <br><br>
+                     City: {{$workAd->city}}
+                     <br><br>
+                     Technologies:  {{$workAd->technologies}}
+                     <br><br>
+                     
                   
 
                 </div>
             </div>
+            <a href="{{ URL::previous() }}" class="btn btn-primary"> Back </a>
         </div>
     </div>
 </div>
+
+
 @endsection

@@ -8,14 +8,14 @@
 <h2> create workad </h2>
 <form action="" method="post">
     {{csrf_field()}}
-     Name : <input type="text" name="name"><br>
-     About : <input type="text" name="about"><br>
-     City : <input type="text" name="city"><br>
-     Technologies : <input type="text" name="technologies"><br>
+     Name : <input class="edit" type="text" name="name">
+     About : <textarea class="edit" type="text" name="about"> </textarea>
+     City : <input class="edit" type="text" name="city">
+     Technologies : <input class="edit" type="text" name="technologies">
 
-     <button type="submit" value="add" name="btn">add</button>
+     <button class="float-right btn btn-success" type="submit" value="add" name="btn">add</button>
 </form>
-   <a href="{{ URL::previous() }}"> Back </a>
+   <a class="btn btn-primary" href="{{ URL::previous() }}"> Back </a>
 
     </div>
 </div>

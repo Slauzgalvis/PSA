@@ -5,18 +5,19 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
 
-<h2> edit workad </h2>
-<form action="" method="post">
+<h2> Edit workad </h2> <br>
+<form action="" method="POST">
     {{csrf_field()}}
-     <input type="hidden" name="id" value={{$workAd->id}}><br>
-     Name : <input type="text" name="name" value={{$workAd->name}}><br>
-     About : <input type="text" name="about"  value={{$workAd->about}}><br>
-     City : <input type="text" name="city"  value={{$workAd->city}}><br>
-     Technologies : <input type="text" name="technologies"  value={{$workAd->technologies}}><br>
-
-     <button type="submit" value="add" name="btn">add</button>
+     <input class="edit" type="hidden" name="id" value={{$workAd->id}}><br>
+     Name :<input class="edit" type="text" name="name" value={{$workAd->name}}><br>
+     About :<textarea class="edit" type="text" name="about"> {{$workAd->about}}</textarea>
+     City : <input class="edit" type="text" name="city"  value={{$workAd->city}}>
+     Technologies :<input class="edit" type="text" name="technologies"  value={{$workAd->technologies}}>
+     <button type="submit" value="add" class="btn btn-warning float-right">edit</button>
 </form>
-   <a href="{{ URL::previous() }}"> Back </a>
+ <a href="{{ URL::previous() }}" class="btn btn-primary"> Back </a>
+<br>
+   
 
     </div>
 </div>

@@ -1,35 +1,35 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace WorkIT\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\workAd;
+use WorkIT\workAd;
 use Auth;
-use App\User;
+use WorkIT\User;
 
 class WorkAdController extends Controller
 {
 
-    public function __construct()
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
+
+  public function index()
+  {        
+    if(Auth::user()->role == "employer"){
+      return view('employer.createworkad',compact('workAd'));        
+    }
+    else
     {
-        $this->middleware('auth');
+      return back();
     }
+  }
 
-    public function index()
-    {        
-      if(Auth::user()->role == "employer"){
-        return view('employer.createworkad',compact('workAd'));        
-      }
-      else
+  public function create()
+  {        
+    if(Auth::user()->role == "employer")
       {
-        return back();
-      }
-    }
-
-    public function create()
-    {        
-      if(Auth::user()->role == "employer")
-        {
         $newAd = new workAd;
         $newAd->user_id = Auth::user()->id;
         $newAd->name = request('name');
@@ -46,9 +46,9 @@ class WorkAdController extends Controller
         return back();
       }
     }
-     public function edit()
+    public function edit()
     {        
-        if(Auth::user()->role == "employer" && request('user_id') == Auth::user()->id){
+      if(Auth::user()->role == "employer" && request('user_id') == Auth::user()->id){
 
         $newAd =  WorkAd::where('id',request('id'))->first();
         $newAd->user_id = Auth::user()->id;
@@ -58,42 +58,37 @@ class WorkAdController extends Controller
         $newAd->technologies = request('technologies');
 
         //
-         $newAd->type = 1;
-         $newAd->duration = 1;
-          $newAd->status = 1;
+        $newAd->type = 1;
+        $newAd->duration = 1;
+        $newAd->status = 1;
 
         //
 
 
         $newAd->save();
         return redirect()->route('home');
-       }
-       else{
+      }
+      else{
         return back();
-       }
-        
+      }
+
     }
     public function editindex(Request $request, workAd $workAd)
     {
         if($request->method() == 'POST')
         {
              if(Auth::user()->role == "employer" && $workAd->user_id == Auth::user()->id){
-
         
         $workAd->user_id = Auth::user()->id;
         $workAd->name = request('name');
         $workAd->about = request('about');
         $workAd->city = request('city');
         $workAd->technologies = request('technologies');
-
         //
          $workAd->type = 1;
          $workAd->duration = 1;
           $workAd->status = 1;
-
         //
-
-
         $workAd->save();
         return redirect()->route('home');
        }
@@ -110,15 +105,16 @@ class WorkAdController extends Controller
        {
         return back();
        }
-       }
-   
-    }
-    public function delete(workAd $workAd)
-    {      
-          if(Auth::user()->role == "employer" && $workAd->user_id == Auth::user()->id){
-             WorkAd::where('id',$workAd->id)->delete();             
-      }
-        return back();
-    }
-    
+     }
+   }
+
+  
+  public function delete(workAd $workAd)
+  {      
+    if(Auth::user()->role == "employer" && $workAd->user_id == Auth::user()->id){
+     WorkAd::where('id',$workAd->id)->delete();             
+   }
+   return back();
+ }
+
 }

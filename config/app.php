@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => 'WorkIT',
 
     /*
     |--------------------------------------------------------------------------
@@ -154,11 +154,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        WorkIT\Providers\AppServiceProvider::class,
+        WorkIT\Providers\AuthServiceProvider::class,
+        // WorkIT\Providers\BroadcastServiceProvider::class,
+        WorkIT\Providers\EventServiceProvider::class,
+        WorkIT\Providers\RouteServiceProvider::class,
 
     ],
 
