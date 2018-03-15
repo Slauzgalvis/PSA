@@ -13,12 +13,21 @@
         <div class="col-md-12" style="margin-top:5px">
                 <h1 style="text-align:center;font-weight: bold;">Edit Work Ad</h1>
             </div>
+             @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
                 <div class="col-md-12" style="margin-top:5px">
 
                     <input class="edit" type="hidden" name="id" value={{$workAd->id}}><br>
                  Name* :<input class="edit" type="text" name="name" value={{$workAd->name}} required><br>
                  City : <input class="edit" type="text" name="city"  value={{$workAd->city}} maxlength="25">
-                 About: <textarea class="edit" name="about" style="resize:none" maxlength="600"></textarea>
+                 About: <textarea class="edit" name="about" style="resize:none" maxlength="600">{{$workAd->about}}</textarea>
                  Technologies :<input class="edit" type="text" name="technologies"  value={{$workAd->technologies}}>
                 </div>
                   

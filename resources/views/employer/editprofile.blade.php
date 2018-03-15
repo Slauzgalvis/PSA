@@ -10,13 +10,21 @@
         <div class="col-md-12" style="margin-top:5px">
                 <h1 style="text-align:center;font-weight: bold;">Edit Company Profile</h1>
             </div>
+            @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     			<div class="col-md-9" style="margin-top:5px">
 
     				Company Name* :<input class="edit" type="text" name="name" value={{$user->name}} required>
-    				Email* : <input class="edit" type="email" name="email"  value={{$user->email}} required>
     				Web-page: <input class="edit" type="url" name="webpage"  value={{$user->webpage}}>
     				Phone: <input class="edit" type="number" name="phone"  value={{$user->phone}}>
-    				About: <textarea class="edit" name="about" style="resize:none" maxlength="600"></textarea>
+    				About: <textarea class="edit" name="about" style="resize:none" maxlength="600">{{$user->about}}</textarea>
     			</div>
                   
                 <div class="col-md-3" style="text-align: center;margin-top:30px;position: relative;" >
@@ -42,7 +50,7 @@ $( "body" ).on('click','#avatarspan', function() {
     $('#avatar').click();
 });
 $("body").on('change','#avatar',function () {
-    if (this.files && this.files[0]) {
+   if (this.files && this.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {

@@ -9,7 +9,7 @@
                 <div class="card-header company">{{$workAd->name}}</div>
 
                 <div class="card-body">
-                    Company: {{$user->name}}
+                    Company: <a href="/home/company/{{$user->id}}">{{$user->name}}</a>
                     <br><br>
                      {{ $workAd->about }}
                      <br><br>

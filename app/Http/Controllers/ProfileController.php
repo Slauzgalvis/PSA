@@ -19,9 +19,16 @@ class ProfileController extends Controller
 	{
 		if($request->method() == 'POST')
 		{
+			$request->validate([
+    'about' => 'max:600',
+    'name' => 'required|max:50|min:4',
+    'webpage' => 'max:100|active_url',
+    'phone' => 'numeric',
+    'avatar' => 'image|size:4000',
+]);
+
 				$user = User::where('id', Auth::user()->id)->first();
 				$user->name = request('name');
-				$user->email = request('email');
 				$user->webpage = request('webpage');
 				$user->phone = request('phone');
 				$user->about = request('about');
@@ -39,7 +46,7 @@ class ProfileController extends Controller
 
 
 				$user->save();
-				return redirect()->route('home');
+				return redirect()->route('profile');
 			}
 		else{
 
