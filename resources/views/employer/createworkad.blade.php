@@ -14,6 +14,15 @@
         <div class="col-md-12" style="margin-top:5px">
                 <h1 style="text-align:center;font-weight: bold;">Create Work Ad</h1>
             </div>
+             @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
                 <div class="col-md-12" style="margin-top:5px">
 
                 

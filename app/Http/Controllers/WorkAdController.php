@@ -26,10 +26,17 @@ class WorkAdController extends Controller
     }
   }
 
-  public function create()
+  public function create(Request $request)
   {        
     if(Auth::user()->role == "employer")
       {
+        $request->validate([
+    'about' => 'max:600',
+    'name' => 'required|max:50|min:4',
+    'city' => 'required|max:100|min:4|alpha',
+    'technologies' => 'max:300',
+]);
+
         $newAd = new workAd;
         $newAd->user_id = Auth::user()->id;
         $newAd->name = request('name');
@@ -49,7 +56,12 @@ class WorkAdController extends Controller
     public function edit()
     {        
       if(Auth::user()->role == "employer" && request('user_id') == Auth::user()->id){
-
+         $request->validate([
+    'about' => 'max:600',
+    'name' => 'required|max:50|min:4',
+    'city' => 'required|max:100|min:4|alpha',
+    'technologies' => 'max:300',
+]);
         $newAd =  WorkAd::where('id',request('id'))->first();
         $newAd->user_id = Auth::user()->id;
         $newAd->name = request('name');

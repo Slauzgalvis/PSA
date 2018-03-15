@@ -19,7 +19,7 @@
                 <a href="https:{{$company->webpage}}">{{$company->webpage}}</a><br>
                 <label>Phone:</label>
                  <a href="tel:{{$company->phone}}">{{$company->phone}}</a><br>
-                <div>About:{{$company->about}}</div>
+                <p>About:{{ $company->about }}</p>
             </div>
 
  
@@ -28,5 +28,6 @@
           <a href="/home" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Back </a>
           <a class="btn btn-warning" style="margin-top:10px; width: 20%;" href="{{ route('editProfile') }}">Edit</a>
       </div>
+      
 
 @endsection
