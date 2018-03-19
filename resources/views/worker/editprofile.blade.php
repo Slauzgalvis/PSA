@@ -23,9 +23,10 @@
 
     				First name* :<input class="edit" type="text" name="firstname" value="{{$user->firstname}}" required>
                     Last name* :<input class="edit" type="text" name="lastname" value="{{$user->lastname}}" required>
+                    Qualification :<input class="edit" type="text" name="qualification" value={{$user->qualification}}>
                     Expierience :<input class="edit" type="text" name="expierience" value={{$user->expierience}}>
-                    GitHub :<input class="edit" type="text" name="github" value={{$user->github}}>
-    				Web-page: <input class="edit" type="url" name="webpage"  value={{$user->webpage}}>
+
+                    GitHub :<input class="edit" type="text" name="github" value={{$user->GitHub}}>
     				Phone: <input class="edit" type="number" name="phone"  value={{$user->phone}}>
     				About: <textarea class="edit" name="about" style="resize:none" maxlength="600">{{$user->about}}</textarea>
     			</div>
@@ -36,14 +37,15 @@
 
                     <span class="btn" style="margin-top:10px;background-color:#7D1935;color:white" id="avatarspan" >Upload Image</span>
                     
-                </div>     
+                </div>
+                  
                 <div class="col-md-12" style="margin-top:5px;text-align: center">   
                 <button type="submit" value="add" class="btn btn-success" style="width:30%;margin-bottom:5px;">Save</button></div>
             </form>
  
          </div>
          <div style="text-align:center;">
- 			
+            <a href="/home/delete/profile/{{$user->id}}" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Delete Profile </a> 
           <a href="/home" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Back </a> 
       </div>
 

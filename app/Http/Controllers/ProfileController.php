@@ -17,14 +17,15 @@ class ProfileController extends Controller
 
 	public function employer(Request $request, User $user)
 	{
+		if(!Auth::guest()){
 		if($request->method() == 'POST')
 		{
 			$request->validate([
     'about' => 'max:600',
-    'name' => 'required|max:50|min:4',
-    'webpage' => 'max:100|active_url',
-    'phone' => 'numeric',
-    'avatar' => 'image|size:4000',
+    'name' => 'required|max:225|min:4',
+    'webpage' => 'max:100|active_url|max:225',
+    'phone' => 'numeric|digits_between:8,12',
+    'avatar' => 'image|max:4000',
 ]);
 
 				$user = User::where('id', Auth::user()->id)->first();
@@ -46,7 +47,7 @@ class ProfileController extends Controller
 
 
 				$user->save();
-				return redirect()->route('profile');
+				return redirect()->route('Eprofile');
 			}
 		else{
 
@@ -59,9 +60,10 @@ class ProfileController extends Controller
 				return back();
 			}
 		}
+	}
 
 	}
-	public function view()
+	public function viewEmployer()
 	{
 			if(Auth::user()->role == "employer"){
 				$company = User::where('id', Auth::user()->id)->first();
@@ -72,8 +74,8 @@ class ProfileController extends Controller
 				return back();
 			}
 		
-
 	}
+
 	public function viewWorker()
 	{
 			if(Auth::user()->role == "worker"){
@@ -90,13 +92,19 @@ class ProfileController extends Controller
 
 	public function editProfileWorker(Request $request, User $user)
 	{
+		if(!Auth::guest())
+			{
 		if($request->method() == 'POST')
 		{
 			$request->validate([
     'about' => 'max:600',
-    'name' => 'max:50|min:4',
-    'phone' => 'nullable|numeric',
+    'phone' => 'numeric|digits_between:8,12',
     'avatar' => 'image|max:4000',
+    'expierience' => 'max:225',
+    'GitHub' => 'max:225',
+    'qualification' => 'max:225',
+    'firstname' => 'max:225',
+    'lastname' => 'max:225',
 ]);
 
 				$user = User::where('id', Auth::user()->id)->first();
@@ -104,7 +112,8 @@ class ProfileController extends Controller
 				$user->phone = request('phone');
 				$user->about = request('about');
 				$user->expierience = request('expierience');
-				$user->github = request('github');
+				$user->qualification = request('qualification');
+				$user->GitHub = request('github');
 				$user->firstname = request('firstname');
 				$user->lastname = request('lastname');
 
@@ -134,5 +143,14 @@ class ProfileController extends Controller
 				return back();
 			}
 		}
+	}
 }
+
+public function delete(User $user)
+  {      
+    if($user->id == Auth::user()->id){
+     User::where('id',$user->id)->delete();             
+   }
+   return redirect('/');
+ }
 }

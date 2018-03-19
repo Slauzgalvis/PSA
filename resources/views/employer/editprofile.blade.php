@@ -40,7 +40,7 @@
  
          </div>
          <div style="text-align:center;">
- 			
+ 			<a href="/home/delete/profile/{{$user->id}}" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Delete Profile </a> 
           <a href="/home" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Back </a> 
       </div>
 

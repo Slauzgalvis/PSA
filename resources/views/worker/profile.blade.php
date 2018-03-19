@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-     <h1 style="text-align:center">Company: {{$company->name}}</h1>
+     <h1 style="text-align:center">{{$company->firstname}} {{$company->lastname}}</h1>
     <div class="row" style="background-color:#eaedf2;border-radius:5px">
                
                 
@@ -18,11 +18,11 @@
                 <label>Phone:</label>
                  <a href="tel:{{$company->phone}}">{{$company->phone}}</a><br>
                  <label>Qualification:</label>
-                 <a href="tel:{{$company->phone}}">{{$company->phone}}</a><br>
+                 {{$company->qualification}}<br>
                  <label>Expierience:</label>
-                 <a href="tel:{{$company->phone}}">{{$company->phone}}</a><br>
+                 {{$company->expierience}}<br>
                  <label>GitHub:</label>
-                 <a href="tel:{{$company->phone}}">{{$company->phone}}</a><br>
+                 {{$company->GitHub}}
                 <p>About:{{ $company->about }}</p>
             </div>
 

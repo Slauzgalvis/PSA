@@ -26,7 +26,14 @@
 
                     <input class="edit" type="hidden" name="id" value={{$workAd->id}}><br>
                  Name* :<input class="edit" type="text" name="name" value={{$workAd->name}} required><br>
-                 City : <input class="edit" type="text" name="city"  value={{$workAd->city}} maxlength="25">
+                 City : <select style="margin-bottom: 25px" name="city">
+  <option value="Vilnius">Vilnius</option>
+  <option value="Kaunas">Kaunas</option>
+  <option value="Klaipėda">Klaipėda</option>
+  <option value="Šiauliai">Šiauliai</option>
+  <option value="Panevežys">Panevežys</option>
+  <option value="Alytus">Alytus</option>
+</select> <br>
                  About: <textarea class="edit" name="about" style="resize:none" maxlength="600">{{$workAd->about}}</textarea>
                  Technologies :<input class="edit" type="text" name="technologies"  value={{$workAd->technologies}}>
                 </div>
