@@ -55,6 +55,9 @@
                                     @if(Auth::user()->role == 'employer') 
                                      <a class="dropdown-item" href="{{ route('profile') }}" >Profile</a>
                                      @endif
+                                     @if(Auth::user()->role == 'worker') 
+                                     <a class="dropdown-item" href="{{ route('Wprofile') }}" >Profile</a>
+                                     @endif
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf

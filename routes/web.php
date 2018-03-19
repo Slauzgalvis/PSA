@@ -18,9 +18,13 @@ Route::get('/home/delete/workad/{workAd}', 'WorkAdController@delete')->name('del
 
 
 Route::get('/home/profile', 'ProfileController@view')->name('profile');
+Route::get('/home/profile', 'ProfileController@viewWorker')->name('Wprofile');
 
 Route::get('/home/edit/profile', 'ProfileController@employer')->name('editProfile');
 Route::post('/home/edit/profile', 'ProfileController@employer')->name('editProfle2');
+
+Route::get('/home/edit/profile', 'ProfileController@editProfileWorker')->name('editProfileWorker');
+Route::post('/home/edit/profile', 'ProfileController@editProfileWorker')->name('editProflePost');
 
 /*
 Route::get('/home/workad/create', 'WorkAdController@create')->name('createWorkAd');
