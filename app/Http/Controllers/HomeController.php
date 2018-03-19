@@ -40,8 +40,9 @@ class HomeController extends Controller
             $data = compact('ads');
        }
         else if(Auth::user()->role == "admin"){
-            $users = User::whereIn('role', ['worker', 'employer'])->paginate(2);
-            $data = compact('users');
+            $ads = workAd::all();
+            $users = User::whereIn('role', ['worker', 'employer'])->paginate(10);
+            $data = compact('users','ads');
        }
 
         

@@ -14,7 +14,6 @@ class ProfileController extends Controller
 	{
 
 	}
-
 	public function employer(Request $request, User $user)
 	{
 		if(!Auth::guest()){
@@ -54,6 +53,12 @@ class ProfileController extends Controller
 			if(Auth::user()->role == "employer"){
 				$user = User::where('id', Auth::user()->id)->first();
             return view('employer.editprofile',compact('user'));                    
+			}
+			else if (Auth::user()->role == "admin")
+			{
+				
+				return $request;
+            return view('employer.editprofile',compact('user'));     
 			}
 			else
 			{
