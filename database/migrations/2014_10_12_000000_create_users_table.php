@@ -25,6 +25,10 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->string('role');
             $table->string('avatar')->default('default.jpg');
+            $table->text('expierience')->nullable();
+            $table->string('GitHub')->nullable();
+            $table->string('firstname')->nullable();
+            $table->string('lastname')->nullable();
             $table->string('about')->nullable();
         });
     }
