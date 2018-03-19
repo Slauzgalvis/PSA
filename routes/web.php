@@ -5,6 +5,7 @@ Auth::routes();
 Route::get('/',function (){return view('welcome');})->name('Welcome');
 
 Route::get('/home','HomeController@index')->name('home');
+Route::post('/home','HomeController@search')->name('search');
 
 Route::get('/home/workad/{workAd}', 'HomeController@workAd')->name('workAd');
 
@@ -26,13 +27,3 @@ Route::get('/home/delete/profile/{user}', 'ProfileController@delete')->name('del
 
 Route::get('/home/edit/profile', 'ProfileController@editProfileWorker')->name('editProfileWorker');
 Route::post('/home/edit/profile', 'ProfileController@editProfileWorker')->name('editProflePost');
-
-/*
-Route::get('/home/workad/create', 'WorkAdController@create')->name('createWorkAd');
-Route::post('/home/workad/create', 'WorkAdController@create');
-
-Route::get('/home/workad/edit/{workAd}', 'WorkAdController@edit')->name('editWorkAd');
-Route::post('/home/workad/create', 'WorkAdController@edit');
-
-Route::post('/home/workad/delete/', 'WorkAdController@delete')->name('deleteWorkAd');
-*/

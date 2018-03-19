@@ -9,28 +9,31 @@ use WorkIT\User;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {        
        $route = Auth::user()->role . '\home';
        $data = [];
        if(Auth::user()->role == "worker"){
-            $ads = workAd::paginate(2);
-            $data = compact('ads');
+
+            if($request->search == ""){
+              $ads = workAd::paginate(1);      
+            }
+            else{
+              $keyword = $request->search;
+              $ads = workAd::where(function ($query) use($keyword) {
+              $query->where('name', 'like', '%' . $keyword . '%')
+              ->orWhere('about', 'like', '%' . $keyword . '%')
+              ->orWhere('city', 'like', '%' . $keyword . '%')
+              ;})->paginate(1);
+            }
+             $data = compact('ads');
+            
+          
        }
         else if(Auth::user()->role == "employer"){
             $ads = workAd::where('user_id',  Auth::user()->id)->get();
