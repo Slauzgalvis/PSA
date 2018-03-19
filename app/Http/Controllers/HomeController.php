@@ -39,6 +39,11 @@ class HomeController extends Controller
             $ads = workAd::where('user_id',  Auth::user()->id)->get();
             $data = compact('ads');
        }
+        else if(Auth::user()->role == "admin"){
+            $users = User::whereIn('role', ['worker', 'employer'])->paginate(2);
+            $data = compact('users');
+       }
+
         
        return view($route, $data);
     }
