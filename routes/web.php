@@ -2,7 +2,7 @@
 
 Auth::routes();
 
-Route::get('/',function (){return view('welcome');});
+Route::get('/',function (){return view('welcome');})->name('Welcome');
 
 Route::get('/home','HomeController@index')->name('home');
 
@@ -17,11 +17,12 @@ Route::post('/home/edit/workad/{workAd}', 'WorkAdController@editindex')->name('e
 Route::get('/home/delete/workad/{workAd}', 'WorkAdController@delete')->name('deleteWorkAd');
 
 
-Route::get('/home/profile', 'ProfileController@view')->name('profile');
+Route::get('/home/profile/employer', 'ProfileController@viewEmployer')->name('Eprofile');
 Route::get('/home/profile', 'ProfileController@viewWorker')->name('Wprofile');
 
-Route::get('/home/edit/profile', 'ProfileController@employer')->name('editProfile');
-Route::post('/home/edit/profile', 'ProfileController@employer')->name('editProfle2');
+Route::get('/home/edit/profile/employer', 'ProfileController@employer')->name('editProfile');
+Route::post('/home/edit/profile/employer', 'ProfileController@employer')->name('editProfle2');
+Route::get('/home/delete/profile/{user}', 'ProfileController@delete')->name('deleteUser');
 
 Route::get('/home/edit/profile', 'ProfileController@editProfileWorker')->name('editProfileWorker');
 Route::post('/home/edit/profile', 'ProfileController@editProfileWorker')->name('editProflePost');

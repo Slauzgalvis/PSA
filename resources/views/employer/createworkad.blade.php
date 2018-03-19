@@ -28,7 +28,14 @@
                 
                 Name : <input class="edit" type="text" name="name">
                 About : <textarea class="edit" type="text" name="about"> </textarea>
-                City : <input class="edit" type="text" name="city">
+                City : <select style="margin-bottom: 25px" name="city">
+  <option value="Vilnius">Vilnius</option>
+  <option value="Kaunas">Kaunas</option>
+  <option value="Klaipėda">Klaipėda</option>
+  <option value="Šiauliai">Šiauliai</option>
+  <option value="Panevežys">Panevežys</option>
+  <option value="Alytus">Alytus</option>
+</select> <br>
                 Technologies : <input class="edit" type="text" name="technologies">
                 </div>
                   

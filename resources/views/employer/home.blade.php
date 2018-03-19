@@ -13,7 +13,6 @@
             {{ session('status') }}
           </div>
           @endif
-          <a class="btn btn-warning float-right" href="/home/edit/profile">Edit Profile </a>
           <a class="btn btn-success" href="/home/create/workad">Create Ad</a>
         </div>
       </div>

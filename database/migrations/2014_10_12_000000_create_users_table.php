@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 50);
+            $table->string('name');
             $table->string('surname')->nullable();
             $table->string('phone')->nullable();
             $table->string('webpage')->nullable();
@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->text('expierience')->nullable();
             $table->string('GitHub')->nullable();
             $table->string('firstname')->nullable();
+            $table->string('qualification')->nullable();
             $table->string('lastname')->nullable();
             $table->string('about')->nullable();
         });
