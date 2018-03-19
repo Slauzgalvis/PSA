@@ -148,9 +148,9 @@ class ProfileController extends Controller
 
 public function delete(User $user)
   {      
-    if($user->id == Auth::user()->id){
+    if($user->id == Auth::user()->id || Auth::user()->role =="admin"){
      User::where('id',$user->id)->delete();             
    }
-   return redirect('/');
+   return redirect('/home');
  }
 }
