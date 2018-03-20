@@ -29,15 +29,17 @@
                 Name : <input class="edit" type="text" name="name">
                 About : <textarea class="edit" type="text" name="about"> </textarea>
                 City : <select style="margin-bottom: 25px" name="city">
-  <option value="Vilnius">Vilnius</option>
-  <option value="Kaunas">Kaunas</option>
-  <option value="Klaipėda">Klaipėda</option>
-  <option value="Šiauliai">Šiauliai</option>
-  <option value="Panevežys">Panevežys</option>
-  <option value="Alytus">Alytus</option>
+   @foreach ($cities as $city)
+        <option value='{{$city}}'>{{$city}}</option>
+        @endforeach
 </select> <br>
-                Technologies : <input class="edit" type="text" name="technologies">
-                </div>
+               <div style="text-align: center" class="technologies">Technologies
+    <select id='select1' name='technologies[]' multiple style='float:left;width:100%;'>
+        @foreach ($technologies as $technology)
+        <option value='{{$technology}}'>{{$technology}}</option>
+        @endforeach
+    </select>
+</div></div>
                   
                 
                 <div class="col-md-12" style="margin-top:5px;text-align: center">   
