@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace WorkIT\Http\Controllers;
 
@@ -15,7 +15,8 @@ class HomeController extends Controller
     }
 
     public function index(Request $request)
-    {        
+    {
+       $keyword = "";
        $route = Auth::user()->role . '\home';
        $data = [];
        if(Auth::user()->role == "worker"){
@@ -29,9 +30,9 @@ class HomeController extends Controller
               $query->where('name', 'like', '%' . $keyword . '%')
               ->orWhere('about', 'like', '%' . $keyword . '%')
               ->orWhere('city', 'like', '%' . $keyword . '%')
-              ;})->paginate(1);
+              ;})->paginate(1)->appends(request()->query());
             }
-             $data = compact('ads');
+             $data = compact('ads','keyword');
             
           
        }
@@ -49,7 +50,7 @@ class HomeController extends Controller
        return view($route, $data);
     }
      public function workAd(workAd $workAd, User $company){
-        if(Auth::user()->role == "worker" || $workAd->user_id == Auth::user()->id){
+        if(Auth::user()->role == "worker" || $workAd->user_id == Auth::user()->id ||Auth::user()->role == "admin"){
           $user = User::where('id', $workAd->user_id)->first();
            return view('worker.workad',compact('workAd','user'));        
        }
@@ -60,7 +61,7 @@ class HomeController extends Controller
         
     }
      public function company(User $company){
-        if(Auth::user()->role == "worker" || Auth::user()->id == $company->id){
+        if(Auth::user()->role == "worker" || Auth::user()->id == $company->id || Auth::user()->role == "admin"){
           
             $ads = workAd::where('user_id',  $company->id)->get();
            return view('worker.company',compact('company','ads'));        

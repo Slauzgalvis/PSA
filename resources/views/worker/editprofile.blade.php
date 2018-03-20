@@ -5,7 +5,8 @@
   
 <div class="container">
     
-     <form action="" method="post" enctype="multipart/form-data"> {{csrf_field()}}
+     <form method="post" enctype="multipart/form-data"> {{csrf_field()}}
+
     <div class="row" style="background-color:#F5F3EE;border-radius:5px">
         <div class="col-md-12" style="margin-top:5px">
                 <h1 style="text-align:center;font-weight: bold;">Edit Worker Profile</h1>

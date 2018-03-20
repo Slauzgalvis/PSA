@@ -53,11 +53,11 @@
                                         {{ __('Logout') }}
                                     </a>
                                     @if(Auth::user()->role == 'employer') 
-                                     <a class="dropdown-item" href="{{ route('Eprofile') }}">
+                                     <a class="dropdown-item" href="/home/profile/employer/{{Auth::user()->id}}">
                                     Profile</a>
                                      @endif
                                      @if(Auth::user()->role == 'worker') 
-                                     <a class="dropdown-item" href="{{ route('Wprofile') }}" >Profile</a>
+                                     <a class="dropdown-item" href="/home/profile/{{Auth::user()->id}}" >Profile</a>
                                      @endif
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

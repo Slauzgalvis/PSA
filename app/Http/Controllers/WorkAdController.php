@@ -45,7 +45,8 @@ class WorkAdController extends Controller
         $newAd->name = request('name');
         $newAd->about = request('about');
         $newAd->city = request('city');
-        $newAd->technologies = request('technologies');
+        $techStr = implode(",", request('technologies'));
+        $newAd->technologies = $techStr;
         $newAd->type = 1;
         $newAd->duration = 1;
         $newAd->status = 1;
@@ -71,7 +72,8 @@ class WorkAdController extends Controller
         $newAd->name = request('name');
         $newAd->about = request('about');
         $newAd->city = request('city');
-        $newAd->technologies = request('technologies');
+         $techStr = implode(",", request('technologies'));
+        $newAd->technologies = $techStr;
 
         //
         $newAd->type = 1;
@@ -97,7 +99,7 @@ class WorkAdController extends Controller
 
         if($request->method() == 'POST')
         {
-             if(Auth::user()->role == "employer" && $workAd->user_id == Auth::user()->id){
+             if(Auth::user()->role == "employer" && $workAd->user_id == Auth::user()->id || Auth::user()->role == "admin"){
         
         $workAd->user_id = Auth::user()->id;
         $workAd->name = request('name');
@@ -120,7 +122,7 @@ class WorkAdController extends Controller
         }
         else{
      
-        if(Auth::user()->role == "employer" && $workAd->user_id == Auth::user()->id){
+        if(Auth::user()->role == "employer" && $workAd->user_id == Auth::user()->id || Auth::user()->role == "admin"){
             return view('employer.edit',compact('workAd','technologies','selectedTechnologies','cities'));        
         }
        else
@@ -133,7 +135,7 @@ class WorkAdController extends Controller
   
   public function delete(workAd $workAd)
   {      
-    if(Auth::user()->role == "employer" && $workAd->user_id == Auth::user()->id){
+    if(Auth::user()->role == "employer" && $workAd->user_id == Auth::user()->id || Auth::user()->role == "admin"){
      WorkAd::where('id',$workAd->id)->delete();             
    }
    return back();

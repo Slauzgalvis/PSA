@@ -35,7 +35,7 @@
                        
                 
 <div style="text-align: center" class="technologies">Technologies
-    <select id='select1' name='technologies[]' multiple style='float:left;width:100%;'>
+    <select id='select1' name='technologies[]' multiple style='float:left;width:100%;' required>
         @foreach ($technologies as $technology)
         <option value='{{$technology}}'>{{$technology}}</option>
         @endforeach
