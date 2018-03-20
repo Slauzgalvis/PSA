@@ -8,7 +8,7 @@
     <div class="row" style="text-align: center;">
     <div class="col-md-12">
     <form action="" method="get" enctype="multipart/form-data"> {{csrf_field()}}
-    <input type="text" name="search" placeholder="Start typing to search" style="width:40%;">
+    <input type="text" name="search" value="{{ $keyword }}" placeholder="Start typing to search" style="width:40%;">
     <button type="submit" class="btn btn-success" style="width:15%;">Search</button>
     </form></div></div>
      <!-- Search bar -->

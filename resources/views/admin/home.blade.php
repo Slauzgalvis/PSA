@@ -2,61 +2,20 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
+    <div class="row justify-content-center" style="">
 
-         @foreach ($users as $user)
-         @if($user->role == "worker")
-         {{ $user->email }} 
-         <p class="float-right">{{$user->role}}
-          <a href="/home/delete/profile/{{$user->id}}" class="btn btn-primary" 
-            style=""> Delete Profile</a>
-            <a href="/home/delete/profile/{{$user->id}}" class="btn btn-primary" 
-                style=""> Edit</a> </p>
-
-                <br>
-                <br>    
-                @endif
-                @endforeach
-
-                @foreach ($users as $user)
-                @if($user->role == "employer")
-                {{ $user->email }} 
-                <p class="float-right">{{$user->role}}
-                  <a href="/home/delete/profile/{{$user->id}}" class="btn btn-primary" 
-                    style=""> Delete Profile</a>
-                    <a href="/home/edit/profile/employer" class="btn btn-primary" 
-                        style="" name="user_id" value="{{$user}}"> Edit</a> </p>
-
-
-
-                        <br>
-
-
-                        @foreach($ads as $ad)
-                        @if($user->id == $ad->user_id)
-                        work ads:<br>
-
-                        {{$ad->id}} 
-                        {{ $ad->name }} 
-                        <br>
-                        @endif
-                        @endforeach
-
-
-                        <br>    
-                        @endif
-                        @endforeach
-
-                    </div>
-
-
-
-                    {{ $users->links() }}
-
-
-                </div>
-
-
-            </div>
-            @endsection
+<div class="col-md-10" style="margin-bottom: 5px">
+<div class="card">
+<div class="card-header" style="text-align: center">Admin Window</div>
+<div class="card-body">
+<a class="nav-link" href="{{ route('adminAds') }}">Work Adds</a></li>
+<a class="nav-link" href="{{ route('adminCompanies') }}">Companies</a></li>
+<a class="nav-link" href="{{ route('adminWorkers') }}">Workers</a></li>
+@if (session('status'))
+<div class="alert alert-success">
+{{ session('status') }}
+</div>
+@endif
+</div></div></div>
+   
+@endsection

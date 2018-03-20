@@ -26,8 +26,6 @@
          </div>
          <div style="text-align:center">
           <a href="/home" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Back </a>
-          <a class="btn btn-warning" style="margin-top:10px; width: 20%;" href="{{ route('editProfile') }}">Edit</a>
+          <a class="btn btn-warning" style="margin-top:10px; width: 20%;" href="/home/edit/profile/employer/{{$company->id}}">Edit</a>
       </div>
-      
-
 @endsection

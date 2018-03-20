@@ -16,18 +16,27 @@ class ProfileController extends Controller
 	}
 	public function employer(Request $request, User $user)
 	{
-		if(!Auth::guest()){
-		if($request->method() == 'POST')
-		{
-			$request->validate([
-    'about' => 'max:600',
-    'name' => 'required|max:225|min:4',
-    'webpage' => 'max:100|active_url|max:225',
-    'phone' => 'numeric|digits_between:8,12',
-    'avatar' => 'image|max:4000',
-]);
+		if(Auth::user()->id == $user->id || Auth::user()->role == "admin"){	
+			return view('employer.editprofile',compact('user'));                    
+		}
+	else
+	{
+	return back();
+	}
 
-				$user = User::where('id', Auth::user()->id)->first();
+	}
+	public function storeEditProfileEmployer(Request $request, User $user){
+{
+	if(Auth::user()->id == $user->id || Auth::user()->role == "admin"){	
+						$request->validate([
+			    'about' => 'max:600',
+			    'name' => 'required|max:225|min:4',
+			    'webpage' => 'max:100|active_url|max:225',
+			    'phone' => 'numeric|digits_between:8,12',
+			    'avatar' => 'image|max:4000',
+						]);
+
+				//$user = User::where('id', Auth::user()->id)->first();
 				$user->name = request('name');
 				$user->webpage = request('webpage');
 				$user->phone = request('phone');
@@ -39,33 +48,18 @@ class ProfileController extends Controller
 					Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
 					$user->avatar = $filename;
 				}
-
-
-
-				
-
-
 				$user->save();
-				return redirect()->route('Eprofile');
+				if(Auth::user()->role == "admin"){
+				return redirect()->route('adminCompanies');
 			}
-		else{
-
-			if(Auth::user()->role == "employer"){
-				$user = User::where('id', Auth::user()->id)->first();
-            return view('employer.editprofile',compact('user'));                    
-			}
-			else if (Auth::user()->role == "admin")
-			{
-				
-				return $request;
-            return view('employer.editprofile',compact('user'));     
-			}
-			else
-			{
-				return back();
-			}
+			else return back();
 		}
+		else
+	{
+	return back();
 	}
+}
+
 
 	}
 	public function viewEmployer()
@@ -95,61 +89,61 @@ class ProfileController extends Controller
 
 	}
 
-	public function editProfileWorker(Request $request, User $user)
+public function editProfileWorker(Request $request, User $user)
 	{
-		if(!Auth::guest())
-			{
-		if($request->method() == 'POST')
-		{
-			$request->validate([
-    'about' => 'max:600',
-    'phone' => 'numeric|digits_between:8,12',
-    'avatar' => 'image|max:4000',
-    'expierience' => 'max:225',
-    'GitHub' => 'max:225',
-    'qualification' => 'max:225',
-    'firstname' => 'max:225',
-    'lastname' => 'max:225',
-]);
-
-				$user = User::where('id', Auth::user()->id)->first();
-				$user->webpage = request('webpage');
-				$user->phone = request('phone');
-				$user->about = request('about');
-				$user->expierience = request('expierience');
-				$user->qualification = request('qualification');
-				$user->GitHub = request('github');
-				$user->firstname = request('firstname');
-				$user->lastname = request('lastname');
-
-			if($request->hasFile('avatar')){
-				$avatar = $request->file('avatar');
-				$filename = time() . '.' . $avatar->getClientOriginalExtension();
-					Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
-					$user->avatar = $filename;
-				}
-
-
-
-				
-
-
-				$user->save();
-				return redirect()->route('Wprofile');
-			}
-		else{
-
-			if(Auth::user()->role == "worker"){
-				$user = User::where('id', Auth::user()->id)->first();
-            return view('worker.editprofile',compact('user'));                    
-			}
-			else
-			{
-				return back();
-			}
+		if(Auth::user()->id == $user->id || Auth::user()->role == "admin"){	
+			return view('worker.editprofile',compact('user'));                    
 		}
+	else
+	{
+	return back();
 	}
 }
+
+public function storeEditProfileWorker(Request $request, User $user)
+{
+	if(Auth::user()->id == $user->id || Auth::user()->role == "admin"){	
+$request->validate([
+				'about' => 'max:600',
+				'phone' => 'numeric|digits_between:8,12',
+				'avatar' => 'image|max:4000',
+				'expierience' => 'max:225',
+				'GitHub' => 'max:225',
+				'qualification' => 'max:225',
+				'firstname' => 'max:225',
+				'lastname' => 'max:225',
+			]);
+
+			$user->webpage = request('webpage');
+			$user->phone = request('phone');
+			$user->about = request('about');
+			$user->expierience = request('expierience');
+			$user->qualification = request('qualification');
+			$user->GitHub = request('github');
+			$user->firstname = request('firstname');
+			$user->lastname = request('lastname');
+
+			if($request->hasFile('avatar')){
+			$avatar = $request->file('avatar');
+			$filename = time() . '.' . $avatar->getClientOriginalExtension();
+			Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
+			$user->avatar = $filename;
+			}
+
+			$user->save();
+			if(Auth::user()->role == "admin"){
+				return redirect()->route('adminWorkers');
+			}
+			else return back();
+		}
+		else
+	{
+	return back();
+	}
+}
+
+
+
 
 public function delete(User $user)
   {      
