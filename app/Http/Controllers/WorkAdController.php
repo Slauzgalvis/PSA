@@ -17,8 +17,10 @@ class WorkAdController extends Controller
 
   public function index()
   {        
+     $cities = ['Vilnius','Kaunas','Klaipėda','Šiauliai','Panevėžys','Kita'];
+     $technologies = ['Javascript','PHP','Laravel','Django','Java','Other'];
     if(Auth::user()->role == "employer"){
-      return view('employer.createworkad',compact('workAd'));        
+      return view('employer.createworkad',compact('workAd','cities','technologies'));        
     }
     else
     {
@@ -28,6 +30,7 @@ class WorkAdController extends Controller
 
   public function create(Request $request)
   {        
+
     if(Auth::user()->role == "employer")
       {
         $request->validate([
@@ -54,7 +57,8 @@ class WorkAdController extends Controller
       }
     }
     public function edit()
-    {        
+    {       
+
       if(Auth::user()->role == "employer" && request('user_id') == Auth::user()->id){
          $request->validate([
     'about' => 'required|max:600',
@@ -87,6 +91,10 @@ class WorkAdController extends Controller
     }
     public function editindex(Request $request, workAd $workAd)
     {
+        $cities = ['Vilnius','Kaunas','Klaipėda','Šiauliai','Panevėžys','Kita'];
+        $technologies = ['Javascript','PHP','Laravel','Django','Java','Other'];
+        $selectedTechnologies = explode(",",$workAd->technologies);
+
         if($request->method() == 'POST')
         {
              if(Auth::user()->role == "employer" && $workAd->user_id == Auth::user()->id){
@@ -95,7 +103,9 @@ class WorkAdController extends Controller
         $workAd->name = request('name');
         $workAd->about = request('about');
         $workAd->city = request('city');
-        $workAd->technologies = request('technologies');
+
+        $techStr = implode(",", request('technologies'));
+        $workAd->technologies = $techStr;
         //
          $workAd->type = 1;
          $workAd->duration = 1;
@@ -111,7 +121,7 @@ class WorkAdController extends Controller
         else{
      
         if(Auth::user()->role == "employer" && $workAd->user_id == Auth::user()->id){
-            return view('employer.edit',compact('workAd'));        
+            return view('employer.edit',compact('workAd','technologies','selectedTechnologies','cities'));        
         }
        else
        {

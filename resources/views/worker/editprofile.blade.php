@@ -26,7 +26,7 @@
                     Qualification :<input class="edit" type="text" name="qualification" value={{$user->qualification}}>
                     Expierience :<input class="edit" type="text" name="expierience" value={{$user->expierience}}>
 
-                    GitHub :<input class="edit" type="text" name="github" value={{$user->GitHub}}>
+                    GitHub :<input class="edit" type="webpage" name="github" value={{$user->GitHub}}>
     				Phone: <input class="edit" type="number" name="phone"  value={{$user->phone}}>
     				About: <textarea class="edit" name="about" style="resize:none" maxlength="600">{{$user->about}}</textarea>
     			</div>
@@ -45,7 +45,7 @@
  
          </div>
          <div style="text-align:center;">
-            <a href="/home/delete/profile/{{$user->id}}" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Delete Profile </a> 
+            <a href="/home/delete/profile/{{$user->id}}" class="btn btn-danger" style="margin-top:10px; width: 20%;"> Delete Profile </a> 
           <a href="/home" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Back </a> 
       </div>
 
