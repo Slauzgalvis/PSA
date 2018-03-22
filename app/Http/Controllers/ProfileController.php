@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use WorkIT\workAd;
 use Auth;
 use WorkIT\User;
+use WorkIT\applications;
 use Image;
 
 class ProfileController extends Controller
@@ -31,8 +32,8 @@ class ProfileController extends Controller
 						$request->validate([
 			    'about' => 'max:600',
 			    'name' => 'required|max:225|min:4',
-			    'webpage' => 'max:100|active_url|max:225',
-			    'phone' => 'numeric|digits_between:8,12',
+			    'webpage' => 'nullable|max:100|active_url|max:225',
+			    'phone' => 'nullable|numeric|digits_between:9,11',
 			    'avatar' => 'image|max:4000',
 						]);
 
@@ -85,9 +86,19 @@ class ProfileController extends Controller
 			{
 				return back();
 			}
-		
-
+}
+	public function EmployerViewWorker(workAd $workAd, applications $application)
+	{
+		if(Auth::user()->role == "employer"){
+				$company = User::where('id', $application->user->id)->first();
+            return view('worker.profile',compact('company'));                    
+			}
+			else
+			{
+				return back();
+			}
 	}
+
 
 public function editProfileWorker(Request $request, User $user)
 	{
@@ -105,7 +116,7 @@ public function storeEditProfileWorker(Request $request, User $user)
 	if(Auth::user()->id == $user->id || Auth::user()->role == "admin"){	
 $request->validate([
 				'about' => 'max:600',
-				'phone' => 'numeric|digits_between:8,12',
+				'phone' => 'nullable|numeric|digits_between:9,11',
 				'avatar' => 'image|max:4000',
 				'expierience' => 'max:225',
 				'GitHub' => 'max:225',

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use WorkIT\workAd;
 use Auth;
 use WorkIT\User;
+use WorkIT\applications;
 
 class WorkAdController extends Controller
 {
@@ -140,5 +141,28 @@ class WorkAdController extends Controller
    }
    return back();
  }
+
+ public function apply(workAd $workAd, User $user)
+  {      
+    if(Auth::user()->role == "worker"){
+      $newApplication = new applications;
+      $newApplication->worker_id = Auth::user()->id;
+      $newApplication->ad_id = $workAd->id;
+      $newApplication->confirmed = false;
+    
+        $newApplication->save();
+        $user = User::where('id', $workAd->user_id)->first();
+        $applications = applications::where('worker_id', Auth::user()->id);
+        redirect()->back();
+   }
+   return back();
+ }
+ public function cancel(workAd $workAd){
+  applications::where('worker_id',Auth::user()->id)->where('ad_id', $workAd->id)->delete();
+        $user = User::where('id', $workAd->user_id)->first();
+        $applications = applications::where('worker_id', Auth::user()->id);
+  return redirect()->back();
+ }
+
 
 }
