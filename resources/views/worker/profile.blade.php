@@ -29,8 +29,13 @@
  
          </div>
          <div style="text-align:center">
-          <a href="/home" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Back </a>
+          
+          @if(Auth::user()->role != 'employer')
           <a class="btn btn-warning" style="margin-top:10px; width: 20%;" href="/home/edit/profile/{{$company->id}}">Edit</a>
+          <a href="/home" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Back </a>
+          @else
+          <a href="{{ URL::previous() }}" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Back </a>
+          @endif
       </div>
       
 

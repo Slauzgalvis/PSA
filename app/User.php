@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use WorkIT\workAd;
 use WorkIT\User;
+use WorkIT\applications;
 
 class User extends Authenticatable
 {
@@ -31,5 +32,9 @@ class User extends Authenticatable
     public function workAds()
     {
         return $this->hasMany('App\workAd');
+    }
+    public function applications()
+    {
+        return $this->hasMany('App\applications');
     }
 }

@@ -8,6 +8,10 @@ Route::get('/home','HomeController@index')->name('home');
 Route::post('/home','HomeController@search')->name('search');
 
 Route::get('/home/workad/{workAd}', 'HomeController@workAd')->name('workAd');
+Route::get('/home/workad/{workAd}/apply/{user}', 'WorkAdController@apply')->name('applyApplication');
+Route::get('/home/workad/{workAd}/cancel', 'WorkAdController@cancel')->name('cancelApplication');
+
+
 
 Route::get('/home/company/{company}', 'HomeController@company')->name('company');
 
@@ -29,6 +33,8 @@ Route::get('/home/delete/profile/{user}', 'ProfileController@delete')->name('del
 
 Route::get('/home/edit/profile/{user}', 'ProfileController@editProfileWorker')->name('editProfileWorker');
 Route::post('/home/edit/profile/{user}', 'ProfileController@storeEditProfileWorker')->name('editProflePost');
+Route::get('/home/workad/{workAd}/profile/{application}', 'ProfileController@EmployerViewWorker')->name('EmployerViewWorker');
+
 
 
 

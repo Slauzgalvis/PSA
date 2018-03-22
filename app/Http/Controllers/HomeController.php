@@ -5,6 +5,7 @@ namespace WorkIT\Http\Controllers;
 use Illuminate\Http\Request;
 use WorkIT\workAd;
 use Auth;
+use WorkIT\applications;
 use WorkIT\User;
 
 class HomeController extends Controller
@@ -22,7 +23,7 @@ class HomeController extends Controller
        if(Auth::user()->role == "worker"){
 
             if($request->search == ""){
-              $ads = workAd::paginate(1);      
+              $ads = workAd::paginate(5);      
             }
             else{
               $keyword = $request->search;
@@ -32,7 +33,8 @@ class HomeController extends Controller
               ->orWhere('city', 'like', '%' . $keyword . '%')
               ;})->paginate(1)->appends(request()->query());
             }
-             $data = compact('ads','keyword');
+            $applications = applications::with('workAd')->where('worker_id', Auth::user()->id)->get();
+             $data = compact('ads','keyword','applications');
             
           
        }
@@ -52,7 +54,8 @@ class HomeController extends Controller
      public function workAd(workAd $workAd, User $company){
         if(Auth::user()->role == "worker" || $workAd->user_id == Auth::user()->id ||Auth::user()->role == "admin"){
           $user = User::where('id', $workAd->user_id)->first();
-           return view('worker.workad',compact('workAd','user'));        
+          $applications = applications::all();
+           return view('worker.workad',compact('workAd','user','applications'));        
        }
        else
        {
