@@ -52,7 +52,7 @@ class ProfileController extends Controller
 				if(Auth::user()->role == "admin"){
 				return redirect()->route('adminCompanies');
 			}
-			else return back();
+			else return redirect('/home/profile/employer/' . Auth::user()->id);
 		}
 		else
 	{
@@ -134,7 +134,7 @@ $request->validate([
 			if(Auth::user()->role == "admin"){
 				return redirect()->route('adminWorkers');
 			}
-			else return back();
+			else return redirect('/home/profile/' . Auth::user()->id);
 		}
 		else
 	{
