@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use WorkIT\workAd;
 use WorkIT\User;
 use WorkIT\applications;
+use WorkIT\Messages;
 
 class User extends Authenticatable
 {
@@ -36,5 +37,9 @@ class User extends Authenticatable
     public function applications()
     {
         return $this->hasMany('App\applications');
+    }
+    public function sentMessages()
+    {
+        return $this->hasMany('Messages','from');
     }
 }
