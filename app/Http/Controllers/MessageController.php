@@ -28,7 +28,7 @@ class MessageController extends Controller
   }
   public function chats()
   {
-   
+
     $unique = [Auth::user()->id];
     $chats = Message::where(function ($query) {
       $query->where('from', '=', Auth::user()->id)->orWhere('to', '=', Auth::user()->id);
@@ -51,5 +51,6 @@ class MessageController extends Controller
     return compact('users');
 
   }
-  
+
 }
+// $query->where(['from', '=', Auth::user()->id,'to','=',kitasid])->orWhere('to', '=', Auth::user()->id);
