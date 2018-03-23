@@ -37,6 +37,19 @@
             <center><a href="/home/workad/{{ $workAd->id }}/apply/{{ Auth::user()->id }}" class="btn btn-success"> Apply </a></center>
             @endif
             </div>
+
+            <form action="{{route('message')}}" method="post"> {{csrf_field()}}
+            <input type="hidden" name="from" value="{{Auth::user()->id}}">
+            <input type="hidden" name="to" value="{{$user->id}}">
+            Message:
+            <input type="text" name="msg"  />
+            <button type="submit" >Send</button>
+            </form>
+
+
+            <a href="{{route('chats')}}"> chats </a>
+
+
             
         </div>
         <a href="{{ route('home') }}" class="btn btn-primary"> Back </a>

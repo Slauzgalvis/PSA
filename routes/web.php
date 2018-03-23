@@ -42,3 +42,6 @@ Route::get('/home/workads','AdminController@workads')->name('adminAds');
 Route::get('/home/companies','AdminController@companies')->name('adminCompanies');
 Route::get('/home/workers','AdminController@workers')->name('adminWorkers');
 Route::get('/home/workers/{user}','AdminController@viewWorker')->name('adminViewWorker');
+
+Route::post('/sendMessage','MessageController@send')->name('message');
+Route::get('/sendMessage','MessageController@chats')->name('chats');
