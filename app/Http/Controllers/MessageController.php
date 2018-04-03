@@ -7,6 +7,7 @@ use WorkIT\workAd;
 use Auth;
 use WorkIT\User;
 use WorkIT\Message;
+use WorkIT\applications;
 use DB;
 
 class MessageController extends Controller
@@ -26,6 +27,21 @@ class MessageController extends Controller
     $msg->save();
     return back();
   }
+
+  public function comfirmed()
+  {   
+    $confirm = applications::where('id',request('application'))->first();
+    $confirm->confirmed = true;
+    $confirm->save();
+
+    $msg = new Message;
+    $msg->from = Auth::user()->id;
+    $msg->to = request('to');
+    $msg->message = request('msg');
+    $msg->save();
+    return redirect('/sendMessage');
+  }
+
   public function chats()
   {
 
@@ -45,10 +61,10 @@ class MessageController extends Controller
       }
     }
     $unique = array_slice($unique, 1);
-
     $users = User::WhereIn('id',$unique)->get();
-
-    return compact('users');
+    $chats = Message::whereIn('to',$unique)->orWhereIn('from', $unique)->where('to', Auth::user()->id)->orWhere('from','=', Auth::user()->id)->get();
+    
+    return view('message',compact('users', 'chats'));
 
   }
 
