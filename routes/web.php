@@ -44,4 +44,5 @@ Route::get('/home/workers','AdminController@workers')->name('adminWorkers');
 Route::get('/home/workers/{user}','AdminController@viewWorker')->name('adminViewWorker');
 
 Route::post('/sendMessage','MessageController@send')->name('message');
+Route::post('/confirm/{applications}','MessageController@comfirmed')->name('comfirmed');
 Route::get('/sendMessage','MessageController@chats')->name('chats');
