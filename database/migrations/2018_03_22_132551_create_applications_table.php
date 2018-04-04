@@ -20,6 +20,7 @@ class CreateApplicationsTable extends Migration
             $table->integer('worker_id')->unsigned();
             $table->foreign('worker_id')->references('id')->on('users')->onDelete('cascade');
             $table->boolean('confirmed');
+            $table->tinyInteger('is_new')->default(0);
             $table->timestamps();
         });
     }

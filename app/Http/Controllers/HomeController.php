@@ -7,6 +7,7 @@ use WorkIT\workAd;
 use Auth;
 use WorkIT\applications;
 use WorkIT\User;
+use WorkIT\Message;
 
 class HomeController extends Controller
 {
@@ -75,5 +76,25 @@ class HomeController extends Controller
        }
         
     }
-     
+    public function notifications(){
+       if(Auth::user()->role == "employer"){
+        $test = workAd::where('user_id',  Auth::user()->id)->select('id')->get();
+        $updates = applications::whereIn('ad_id',$test)->where('is_new',0)->get();
+        return view('employer.notifications',compact('updates'));
+       }
+
+
+
+
+    }
+    public function update(){
+      $newApps = 0;
+      if(Auth::user()->role == "employer"){
+        $test = workAd::where('user_id',  Auth::user()->id)->select('id')->get();
+        $newApps = applications::whereIn('ad_id',$test)->where('is_new',0)->count();
+       
+      }
+     $newMsg = Message::where('to',Auth::user()->id)->where('is_red',0)->count();
+      return [$newMsg,$newApps];
+    }
 }

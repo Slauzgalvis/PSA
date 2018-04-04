@@ -30,7 +30,9 @@ class MessageController extends Controller
 
   public function comfirmed()
   {   
+
     $confirm = applications::where('id',request('application'))->first();
+    $confirm->is_new = 1;
     $confirm->confirmed = true;
     $confirm->save();
 
@@ -41,11 +43,24 @@ class MessageController extends Controller
     $msg->save();
     return redirect('/sendMessage');
   }
+  public function declined()
+  {   
+
+    $confirm = applications::where('id',request('application'))->first();
+    $confirm->is_new = 1;
+    $confirm->confirmed = false;
+    $confirm->save();
+
+    return back();
+  }
 
   public function chats()
   {
 
     $unique = [Auth::user()->id];
+
+    $chats = Message::where('to',Auth::user()->id)->where('is_red',0)->update(['is_red' => 1]);
+
     $chats = Message::where(function ($query) {
       $query->where('from', '=', Auth::user()->id)->orWhere('to', '=', Auth::user()->id);
     })->select('to','from')->distinct('to','from')->get();

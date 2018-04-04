@@ -41,7 +41,8 @@
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
-                        <li><a class="nav-link" href="{{ route('chats') }}">Messages</a></li>
+                        <li><a class="nav-link" href="{{ route('chats') }}">Messages<span id="notmes" style="position:absolute;top:5px;color:blue"></span></a></li>
+                        <li><a class="nav-link" href="{{ route('notifications') }}">Updates<span id="notif" style="position:absolute;top:5px;color:blue"></span></a></li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -79,5 +80,28 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+function autoReloadSpan(){
+    $.ajax({ url: "{{ route('update') }}",
+                     data: {},
+                     type: 'GET',
+                     success: function(data) {
+                        console.log(data);
+                        if(data[0] == "0"){
+                            data[0] = "";
+                        }
+                        if(data[1] == "0"){
+                            data[1] = "";
+                        }
+                        $("#notmes").text(data[0]);
+                        $("#notif").text(data[1]);
+                     },
+    });
+}
+autoReloadSpan();
+setInterval(function(){
+    autoReloadSpan() 
+}, 5000);
+</script>
 </body>
 </html>
