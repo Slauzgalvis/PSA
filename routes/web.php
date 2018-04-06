@@ -46,7 +46,9 @@ Route::get('/home/workers/{user}','AdminController@viewWorker')->name('adminView
 Route::post('/sendMessage','MessageController@send')->name('message');
 Route::post('/confirm/{applications}','MessageController@comfirmed')->name('comfirmed');
 Route::post('/decline/{applications}','MessageController@declined')->name('declined');
-Route::get('/sendMessage','MessageController@chats')->name('chats');
+Route::get('/sendMessage/','MessageController@chats')->name('chats');
+Route::get('/sendMessage/chat/{user}','MessageController@chat1o1')->name('chat1o1');
 
 Route::get('/notifications','HomeController@notifications')->name('notifications');
 Route::get('/update','HomeController@update')->name('update');
+
