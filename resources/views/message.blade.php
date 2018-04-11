@@ -15,7 +15,6 @@
 
 				<div class="card-body">
 
-					
 					<h1 id="username">{{$user1->name}}</h1> <br>
 <nav class="chat" >
 	<ul id="chatbox">
