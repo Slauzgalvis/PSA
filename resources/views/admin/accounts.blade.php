@@ -14,7 +14,7 @@
 <a class="nav-link" href="{{ route('adminCompanies') }}">Companies</a></li>
 <a class="nav-link" href="{{ route('adminWorkers') }}">Workers</a></li>
         <div class="col-md-12">
-        @if($workers->count())
+        @if($accounts->count())
             <table style="text-align: center; width:100%; border-style: solid; background-color:white">
             <tr>
                 <th>ID</th>
@@ -24,22 +24,22 @@
                 <th>Email</th>
                 <th>Actions</th>
             </tr>
-        @foreach ($workers as $worker)
+        @foreach ($accounts as $account)
     <tr style=" border-style: solid; border-width: 0.5px">
-        <td>{{$worker->id}}</td>
-        <td>{{$worker->name}}</td>
-        <td style="display:block; max-width: 100px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{$worker->about}}</td>
-        <td>{{$worker->created_at}}</td>
-        <td>{{$worker->email}}</td>
+        <td>{{$account->id}}</td>
+        <td>{{$account->name}}</td>
+        <td style="display:block; max-width: 100px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{$account->about}}</td>
+        <td>{{$account->created_at}}</td>
+        <td>{{$account->email}}</td>
         <td>
-            <a href="/home/workers/{{$worker->id}}" class="btn btn-primary">Details</a>
-            <a href="/home/edit/profile/{{$worker->id}}" class="btn btn-warning">Edit</a>
-            <a onclick="return confirm_alert(this);" href="/home/delete/profile/{{$worker->id}}" class="btn btn-danger"> Delete</a>
+            <a href="/home/workers/{{$account->id}}" class="btn btn-primary">Details</a>
+            <a href="/home/edit/profile/{{$account->id}}" class="btn btn-warning">Edit</a>
+            <a onclick="return confirm_alert(this);" href="/home/delete/profile/{{$account->id}}" class="btn btn-danger"> Delete</a>
         </td>
     </tr>
         @endforeach
         </table>
-        {{ $workers->links() }}
+        {{ $accounts->links() }}
         @else
 
         @endif
