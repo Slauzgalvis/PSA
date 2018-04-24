@@ -17,13 +17,13 @@
 
 					<h1 id="username">{{$user1->name}}</h1> <br>
 <nav class="chat" >
-	<ul id="chatbox">
+	<ul hidden id="chatbox">
 					@foreach($chats as $chat)
 					
 					@if($user1->id == $chat->to)
-					<li><p style="background-color:powderblue; margin-bottom: -20px;">{{$chat->created_at}} :{{$chat->message}}</p></li><br>
+					<li class="test"><p style="background-color:powderblue; margin-bottom: -20px;">{{$chat->created_at}} :{{$chat->message}}</p></li><br>
 					@elseif($user1->id == $chat->from)
-					<li><p style="background-color:salmon; margin-bottom: -20px;">{{$chat->created_at}} :{{$chat->message}}</p></li><br>
+					<li class="test"><p style="background-color:salmon; margin-bottom: -20px;">{{$chat->created_at}} :{{$chat->message}}</p></li><br>
 					@endif
 
 					@endforeach
@@ -33,8 +33,8 @@
             <input type="hidden" name="from" value="{{Auth::user()->id}}">
             <input type="hidden" name="to" value="{{$user1->id}}">
             Message:
-            <input type="text" name="msg"  />
-            <button type="submit" >Send</button>
+            <input type="text" id="messagefield" name="msg"  />
+            <button id="sendmsg" type="submit" >Send</button>
             </form>
 					
 
@@ -48,6 +48,19 @@
 </div>
 <script>
 
+$(document).ready(function(){
+$('#chatbox').prop("hidden", false);
+$('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
+
+
+$('#sendmsg').attr('disabled',true);
+$('#messagefield').keyup(function(){
+if($(this).val().length !=0)
+    $('#sendmsg').attr('disabled', false);            
+else
+    $('#sendmsg').attr('disabled',true);
+})
+});
 </script>
 
 @endsection
