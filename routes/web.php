@@ -52,3 +52,15 @@ Route::get('/sendMessage/chat/{user}','MessageController@chat1o1')->name('chat1o
 Route::get('/notifications','HomeController@notifications')->name('notifications');
 Route::get('/update','HomeController@update')->name('update');
 
+Route::get('/home/create/test', 'TestController@index');
+Route::post('/home/create/test', 'TestController@createTest');
+Route::get('/home/tests/', 'TestController@tests');
+Route::get('/home/tests/edit/{id}', 'TestController@edit');
+Route::post('/home/tests/edit/{id}', 'TestController@editSave');
+
+Route::get('/home/create/test/addquestion/{testid}', 'TestController@addQ');
+
+Route::post('/home/create/test/addquestion/', 'TestController@addQuestion')->name('addq');
+
+Route::get('/home/tests/delete/{test}', 'TestController@deleteTest');
+Route::get('/home/tests/edit/delete/{question}', 'TestController@deleteQuestion');

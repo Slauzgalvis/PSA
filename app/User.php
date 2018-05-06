@@ -8,6 +8,7 @@ use WorkIT\workAd;
 use WorkIT\User;
 use WorkIT\applications;
 use WorkIT\Messages;
+use WorkIT\Test;
 
 class User extends Authenticatable
 {
@@ -41,5 +42,9 @@ class User extends Authenticatable
     public function sentMessages()
     {
         return $this->hasMany('Messages','from');
+    }
+    public function tests()
+    {
+        return $this->hasMany('WorkIT\Test','owner');
     }
 }

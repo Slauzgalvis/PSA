@@ -27,6 +27,7 @@ class WorkAdController extends Controller
     {
       return back();
     }
+    
   }
 
   public function create(Request $request)

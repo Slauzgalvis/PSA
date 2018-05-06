@@ -14,6 +14,7 @@
           </div>
           @endif
           <a class="btn btn-success" href="/home/create/workad">Create Ad</a>
+           <a class="btn btn-success" href="/home/tests">Tests</a>
         </div>
       </div>
     </div>

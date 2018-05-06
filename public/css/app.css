@@ -70,7 +70,14 @@ textarea.edit{
 	background-color: #b30000
 }
 nav.chat ul{height:200px; width:100%;}
-nav.chat ul{overflow:hidden; overflow-y:scroll;}
+nav.chat ul{overflow:auto;}
+
+
+#gaidys{
+	height:200px; 
+	width:100%;
+	overflow:auto;
+}
 
 
 }
