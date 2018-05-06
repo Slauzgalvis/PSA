@@ -42,8 +42,9 @@
     </tr>
 
   </table>
-   <input type="submit" class="submit" id="submit" value="Add question and finish"/>
+   
    <input type="submit" class="submit" id="submit" value="Add question and create next"/>
+   <a href="/home/tests" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Finish </a>
 </form>
 
 

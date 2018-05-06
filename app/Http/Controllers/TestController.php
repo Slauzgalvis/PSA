@@ -51,6 +51,7 @@ class TestController extends Controller
   }
   public function createTest()
   {  
+
     if(Auth::user()->role == "employer"){
         if(request('q')!=null){
             $question = new Question;
@@ -95,4 +96,65 @@ class TestController extends Controller
       return back();
     }
   }
+  public function tests()
+  {  
+    if(Auth::user()->role == "employer"){
+       $tests = Auth::user()->tests()->get();
+       return view('employer.tests',compact('tests')); 
+      
+             
+    }
+    else
+    {
+      return back();
+    }
+  }
+    public function edit($id)
+  {  
+    if(Auth::user()->role == "employer"){
+
+        $test = Test::where('id', '=', $id)->first();
+        $questions = $test->questions()->get();
+        return view('employer.editquests',compact('test','questions'));
+                   
+    }
+    else
+    {
+      return back();
+    }
+  }
+    public function editSave()
+  {  
+    $test = Test::where('id','=',request('id'))->first();
+    if(Auth::user()->role == "employer" && $test->owner ==  Auth::user()->id){
+        $test->test_name = request('name');
+        $test->save();
+        $questions = $test->questions()->get();
+        return view('employer.editquests',compact('test','questions'));
+                   
+    }
+    else
+    {
+      return back();
+    }
+  }
+   public function deleteTest(Test $test)
+  {      
+    if(Auth::user()->role == "employer" && $test->owner == Auth::user()->id || Auth::user()->role == "admin"){
+     Test::where('id',$test->id)->delete();             
+   }
+   return back();
+ }
+   public function deleteQuestion(Question $question)
+  {  
+      
+    if(Auth::user()->role == "employer" && $question->test->owner == Auth::user()->id || Auth::user()->role == "admin"){
+     Question::where('id',$question->id)->delete();             
+   }
+   return back();
+ }
 }
+
+//TODO -> My Tests -> all tests
+// On click test -> all questions for that test
+// On click all answers for that question + edit
