@@ -55,8 +55,6 @@ Route::get('/update','HomeController@update')->name('update');
 Route::get('/home/create/test', 'TestController@index');
 Route::post('/home/create/test', 'TestController@createTest');
 Route::get('/home/tests/', 'TestController@tests');
-Route::get('/home/tests/edit/{id}', 'TestController@edit');
-Route::post('/home/tests/edit/{id}', 'TestController@editSave');
 
 Route::get('/home/create/test/addquestion/{testid}', 'TestController@addQ');
 
@@ -64,3 +62,12 @@ Route::post('/home/create/test/addquestion/', 'TestController@addQuestion')->nam
 
 Route::get('/home/tests/delete/{test}', 'TestController@deleteTest');
 Route::get('/home/tests/edit/delete/{question}', 'TestController@deleteQuestion');
+
+Route::get('/home/tests/{test}', 'TestController@testDetails');
+Route::post('/home/tests/{test}', 'TestController@editSave');
+
+Route::get('/home/tests/question/{question}', 'TestController@editQuestion');
+Route::post('/home/tests/question/{question}', 'TestController@saveEditQuestion');
+
+Route::get('/home/tests/{test}/add', 'TestController@addQuestionToTest');
+Route::post('/home/tests/{test}/add', 'TestController@addQuestionToTestSave');

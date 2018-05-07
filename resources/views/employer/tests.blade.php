@@ -13,9 +13,10 @@
     <tr style=" border-style: solid; border-width: 0.5px">
         <td> {{$test->test_name}}</td>
         <td> {{$test->created_at}}</td>
-         <td> <a class="btn btn-primary" href="/home/tests/edit/{{$test->id}}">Edit</a> 
+         <td> 
              <a onclick="return confirm_alert(this);" href="/home/tests/delete/{{$test->id}}" class="btn btn-danger"> Delete</a>
-         ,Details</td>
+             <a class="btn btn-primary" href="/home/tests/{{$test->id}}">Details</a> 
+         </td>
     </tr>
         @endforeach
         </table>
