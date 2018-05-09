@@ -15,6 +15,8 @@
           @endif
           <a class="btn btn-success" href="/home/create/workad">Create Ad</a>
            <a class="btn btn-success" href="/home/tests">Tests</a>
+             <a class="btn btn-success" href="/home/applicants">Applicants</a>
+             <a class="btn btn-success" href="/home/results">Test results</a>
         </div>
       </div>
     </div>

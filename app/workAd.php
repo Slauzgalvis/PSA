@@ -15,6 +15,6 @@ class workAd extends Model
     }
     public function applications()
     {
-        return $this->hasMany('App\applications');
+        return $this->hasMany('WorkIT\applications','ad_id');
     }
 }
