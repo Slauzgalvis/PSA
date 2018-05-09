@@ -71,3 +71,17 @@ Route::post('/home/tests/question/{question}', 'TestController@saveEditQuestion'
 
 Route::get('/home/tests/{test}/add', 'TestController@addQuestionToTest');
 Route::post('/home/tests/{test}/add', 'TestController@addQuestionToTestSave');
+
+Route::get('/home/applicants/', 'WorkAdController@applicants');
+
+Route::get('/home/applicants/assign/{user}', 'WorkAdController@assign');
+Route::post('/home/applicants/assign/{user}', 'WorkAdController@assignCreate');
+
+Route::get('/home/mytests/', 'TestController@workerTests');
+
+
+Route::get('/home/mytests/{result}', 'TestController@workerTestsDo');
+Route::post('/home/mytests/{result}', 'TestController@workerTestSave');
+
+Route::get('/home/results/', 'ResultController@index');
+Route::get('/home/results/{result}', 'ResultController@single');

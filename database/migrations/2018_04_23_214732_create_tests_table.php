@@ -21,7 +21,7 @@ class CreateTestsTable extends Migration
             $table->string('test_name');
             $table->integer('type');
         });
-    }
+    } 
 
     /**
      * Reverse the migrations.

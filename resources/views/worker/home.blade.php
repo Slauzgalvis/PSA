@@ -25,7 +25,7 @@ in company: <a href="/home/company/{{$application->workAd->user_id}}"> {{$applic
 @endforeach
 
 </div></div></div>
-
+<a href="/home/mytests/" class="btn btn-danger float-right">Tests </a> <br><br>
 <div class="col-md-10" style="">
     <!-- Search bar --><br>
     <div class="row" style="text-align: center;">

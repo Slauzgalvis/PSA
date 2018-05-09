@@ -7,7 +7,9 @@ use WorkIT\workAd;
 use Auth;
 use WorkIT\User;
 use WorkIT\applications;
-
+use WorkIT\Test;
+use WorkIT\Result;
+use WorkIT\Message;
 class WorkAdController extends Controller
 {
 
@@ -164,6 +166,29 @@ class WorkAdController extends Controller
         $applications = applications::where('worker_id', Auth::user()->id);
   return redirect()->back();
  }
-
+ public function applicants(){
+    $workads = Auth::user()->workAds()->select('id')->get();
+    $applications = applications::whereIn('ad_id',$workads)->where('confirmed','!=',0)->get();
+   return view('employer.assign',compact('tests','applications'));
+ }
+ public function assign(User $user){
+    $tests = Auth::user()->tests()->get();
+   return view('employer.testsforuser',compact('tests','user'));
+ }
+public function assignCreate(User $user){
+   foreach (request('tests') as $test)
+   {
+    $result = new Result;
+    $result->user_id = request('uid');
+    $result->test_id = $test;
+    $result->save();
+    $msg = new Message;
+    $msg->from = Auth::user()->id;
+    $msg->to = request('uid');
+    $msg->message = "New test assigned";
+    $msg->save();
+   }
+   return redirect()->back();
+ }
 
 }

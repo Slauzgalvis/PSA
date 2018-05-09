@@ -33,11 +33,11 @@ class User extends Authenticatable
     ];
     public function workAds()
     {
-        return $this->hasMany('App\workAd');
+        return $this->hasMany('WorkIT\workAd');
     }
     public function applications()
     {
-        return $this->hasMany('App\applications');
+        return $this->hasMany('WorkIT\applications');
     }
     public function sentMessages()
     {
@@ -46,5 +46,9 @@ class User extends Authenticatable
     public function tests()
     {
         return $this->hasMany('WorkIT\Test','owner');
+    }
+     public function testsToDo()
+    {
+        return $this->hasMany('WorkIT\Result','user_id');
     }
 }

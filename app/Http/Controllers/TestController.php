@@ -9,6 +9,8 @@ use WorkIT\User;
 use WorkIT\applications;
 use WorkIT\Test;
 use WorkIT\Question;
+use WorkIT\Result;
+use WorkIT\Message;
 
 class TestController extends Controller
 {
@@ -216,6 +218,27 @@ class TestController extends Controller
     {
       return back();
     }
+  }
+  public function workerTests(){
+     $results = Auth::user()->testsToDo()->where('is_done','!=',1)->get();
+     return view('worker.tests',compact('results'));
+  }
+  public function workerTestsDo(Result $result){
+     
+    $questions = $result->test->questions;
+
+    return view('worker.dotest',compact('questions','result'));
+  }
+  public function workerTestSave(Result $result){
+     $result->answers = request('answers');
+     $result->is_done = 1;
+     $result->save();
+      $msg = new Message;
+      $msg->from = Auth::user()->id;
+      $msg->to = $result->test->id;
+      $msg->message = "Test completed";
+      $msg->save();
+     return redirect()->route('home');
   }
 }
 

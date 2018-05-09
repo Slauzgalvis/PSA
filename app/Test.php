@@ -15,4 +15,8 @@ class Test extends Model
     {
         return $this->belongsTo('WorkIT\User', 'owner');
     }
+    public function results()
+    {
+        return $this->hasMany('WorkIT\Result', 'test_id');
+    }
 }
