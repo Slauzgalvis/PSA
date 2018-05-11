@@ -4,18 +4,24 @@
        
             <table style="text-align: center; width:100%; border-style: solid; background-color:white">
             <tr>
-               <th>ID</th>
+               <th>Test</th>
                <th>Assigned</th>
                <th>Completed</th>
                <th>Applicant</th>
+               <th>%</th>
                <th>Actions</th>
             </tr>
         @foreach ($results as $result)
     <tr style=" border-style: solid; border-width: 0.5px">
-        <td> {{$result->id}}</td>
+        <td> {{$result->test->id}}</td>
         <td> {{$result->created_at}}</td>
         <td> {{$result->updated_at}}</td>
         <td> {{$result->user->name}}</td>
+        <td> @if($result->result >0 || $result->max >0) {{(abs($result->result)/$result->max)*100}} % 
+                @else
+                 0 %
+               @endif
+               </td>
 
          <td> 
              

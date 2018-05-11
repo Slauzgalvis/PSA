@@ -79,5 +79,19 @@ nav.chat ul{overflow:auto;}
 	overflow:auto;
 }
 
-
+.col0{
+	 color: red;
+	 margin:0;
+	 padding: 0;
+}
+.col1{
+	 color: orange;
+	  margin:0;
+	  padding: 0;
+}
+.col2{
+	 color: green;
+	  margin:0;
+	  padding: 0;
+}
 }

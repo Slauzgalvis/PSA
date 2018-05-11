@@ -18,10 +18,10 @@
      @foreach($questions as $question)
     <p><strong>{{$question->question}}</strong></p>
       @if($question->type == 0)
-      <input type="text" name="answers[]" class="form-control" placeholder="Enter Answer" required>
+      <input type="text" name="answers[{{$question->id}}]" class="form-control" placeholder="Enter Answer" required>
       @else
        @for ($i = 0; $i < count($question->answers); $i++)
-      <p> {{$question->answers[$i]}} <input type="checkbox" name="answers[]" id="radioButton" value="{{$question->id . $i+1}}"></p> 
+      <p> {{$question->answers[$i]}} <input type="checkbox" name="answers[{{$question->id}}][]" id="radioButton" value="{{$i+1}}"></p> 
       @endfor
       @endif
 
