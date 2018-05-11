@@ -172,7 +172,8 @@ class WorkAdController extends Controller
    return view('employer.assign',compact('tests','applications'));
  }
  public function assign(User $user){
-    $tests = Auth::user()->tests()->get();
+    $results = $user->testsToDo()->select('test_id')->distinct()->get();
+    $tests = Auth::user()->tests()->whereNotIn('id',$results)->get();
    return view('employer.testsforuser',compact('tests','user'));
  }
 public function assignCreate(User $user){

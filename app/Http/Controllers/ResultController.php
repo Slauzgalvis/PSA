@@ -27,16 +27,33 @@ class ResultController extends Controller
     public function single(Result $result)
     {
       $test = $result->test;
-      $what = [];
-      $correct = $test->questions()->select('correct')->get();
-      $types = $test->questions()->select('type')->get();
-      for($i=0;$i<count($correct);$i++){
-        array_push($what,1);
+      $questions = $test->questions;
+      $array = [
+      "foo" => "bar",
+      "bar" => "foo",
+      ];
+      $array['9'] = [1,2,3];
+
+      foreach($questions as $question){
+        if($question->type == 0){
+          $array[$question->id] = $result->answers[$question->id];
+        }
+        else{
+          $array[$question->id] = [0,0,0,0,0];
+          if(isset($result->answers[$question->id])){
+            foreach($result->answers[$question->id] as $opt){
+              if($question->correct[$opt-1] == $opt){
+                $array[$question->id][$opt-1] = 1;
+              }
+              else{
+                $array[$question->id][$opt-1] = -1;
+              }
+            }
+          }
+        }
       }
-      $answers1 = $result->answers;
-      $answers2 = $result->answers;
-      //$answers2 = $test->questions()->select('answers')->get();
-      return $answers1;
+
+       return view('employer.resultsingle',compact('questions','result','array'));
       //return view('employer.resultsingle',compact('answers1','answers2'));
     }
 }

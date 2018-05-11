@@ -220,7 +220,7 @@ class TestController extends Controller
     }
   }
   public function workerTests(){
-     $results = Auth::user()->testsToDo()->where('is_done','!=',1)->get();
+     $results = Auth::user()->testsToDo()->where('is_done','!=',1)->orderby('created_at','desc')->get();
      return view('worker.tests',compact('results'));
   }
   public function workerTestsDo(Result $result){
@@ -230,12 +230,45 @@ class TestController extends Controller
     return view('worker.dotest',compact('questions','result'));
   }
   public function workerTestSave(Result $result){
-     $result->answers = request('answers');
-     $result->is_done = 1;
-     $result->save();
+      $result->answers = request('answers');
+      $result->is_done = 1;
+      
+      //return $result->answers;
+      $test = $result->test;
+      $count = 0;
+      for($i=0;$i<count($test->questions);$i++)
+      {
+        if($test->questions[$i]->type != 0 && isset($result->answers[$test->questions[$i]->id])){
+            foreach($result->answers[$test->questions[$i]->id] as $id){
+              if($test->questions[$i]->correct[$id-1] != 0){
+                $count++;
+              }
+              else
+              {
+                $count--;
+              }
+            }           
+        }
+          
+      }
+      $max = 0;
+      foreach($test->questions as $question){
+        if($question->type != 0){
+          foreach($question->correct as $correct){
+            if($correct != 0){
+              $max++;
+            }
+        }
+        }
+        
+      }
+      $result->result = $count;
+      $result->max = $max;
+      $result->save();
+
       $msg = new Message;
       $msg->from = Auth::user()->id;
-      $msg->to = $result->test->id;
+      $msg->to = $result->test->owner;
       $msg->message = "Test completed";
       $msg->save();
      return redirect()->route('home');

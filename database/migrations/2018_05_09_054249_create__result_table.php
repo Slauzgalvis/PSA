@@ -21,6 +21,8 @@ class CreateResultTable extends Migration
             $table->integer('test_id')->unsigned();
             $table->foreign('test_id')->references('id')->on('tests')->onDelete('cascade');
             $table->tinyInteger('is_done')->default(0);
+            $table->integer('result')->default(0);
+            $table->integer('max')->default(0);
 
             $table->timestamps();
         });
