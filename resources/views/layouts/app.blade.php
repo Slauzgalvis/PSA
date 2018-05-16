@@ -86,7 +86,6 @@ function autoReloadSpan(){
                      data: {},
                      type: 'GET',
                      success: function(data) {
-                        console.log(data);
                         if(data[0] == "0"){
                             data[0] = "";
                         }

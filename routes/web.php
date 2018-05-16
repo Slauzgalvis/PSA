@@ -85,3 +85,5 @@ Route::post('/home/mytests/{result}', 'TestController@workerTestSave');
 
 Route::get('/home/results/', 'ResultController@index');
 Route::get('/home/results/{result}', 'ResultController@single');
+
+Route::post('/updateMsg','MessageController@updateMsg')->name('updateMsg');

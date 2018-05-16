@@ -17,15 +17,49 @@ class MessageController extends Controller
     $this->middleware('auth');
   }
 
+  public function updateMsg(Request $request){
+     $fromonly= Message::where([
+    ['from', '=', $request['from']],
+    ['to', '=', Auth::user()->id],
+    ['is_red', '=', 0],
+  ])->orderby('created_at','asc')->get();
+    
+     foreach($fromonly as $from){
+      $from->is_red = 1;
+      $from->save();
+     }
+
+     return $fromonly;
+  }
   
-  public function send()
-  {   
+  public function send(Request $request)
+  {
     $msg = new Message;
     $msg->from = Auth::user()->id;
-    $msg->to = request('to');
-    $msg->message = request('msg');
+    $msg->to = $request['to'];
+    $msg->message = $request['msg'];
     $msg->save();
-    return back();
+
+    $chats = Message::where([
+    ['from', '=', $request['to']],
+    ['to', '=', Auth::user()->id],
+    ['is_red', '=', 0],
+])->orWhere('id', $msg->id)->orderby('created_at','asc')->get();
+
+    $fromonly= Message::where([
+    ['from', '=', $request['to']],
+    ['to', '=', Auth::user()->id],
+    ['is_red', '=', 0],
+  ])->get();
+
+     foreach($fromonly as $from){
+      $from->is_red = 1;
+      $from->save();
+     }
+
+     return $chats;
+
+    //return back();
   }
 
   public function comfirmed()
