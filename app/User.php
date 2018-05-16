@@ -47,8 +47,16 @@ class User extends Authenticatable
     {
         return $this->hasMany('WorkIT\Test','owner');
     }
+    public function tasks()
+    {
+        return $this->hasMany('WorkIT\Task','owner');
+    }
      public function testsToDo()
     {
         return $this->hasMany('WorkIT\Result','user_id');
+    }
+     public function tasksToDo()
+    {
+        return $this->hasMany('WorkIT\task_files','user_id');
     }
 }

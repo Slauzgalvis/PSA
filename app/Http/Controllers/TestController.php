@@ -11,6 +11,9 @@ use WorkIT\Test;
 use WorkIT\Question;
 use WorkIT\Result;
 use WorkIT\Message;
+use WorkIT\Task;
+use WorkIT\task_files;
+use Image;
 
 class TestController extends Controller
 {
@@ -55,6 +58,7 @@ class TestController extends Controller
   {  
 
     if(Auth::user()->role == "employer"){
+
         if(request('q')!=null){
             $question = new Question;
             $question->test_id = request('testid');
@@ -72,15 +76,24 @@ class TestController extends Controller
             return view('employer.createq',compact('test'));
         }
         else{
-        $test = new Test;
-        $test->owner = Auth::user()->id;
-        $test->test_name = request('testname');
-        $test->type = request('type');
-        $test->save();
+         if(request('type')==0){
+          $test = new Test;
+          $test->owner = Auth::user()->id;
+          $test->test_name = request('testname');
+          $test->type = request('type');
+          $test->save();
+          return view('employer.createq',compact('test')); 
+         }
+         else
+         {
+           $task = new Task;
+           $task->owner = Auth::user()->id;
+           $task->test_name = request('testname');
+           $task->save();
+           return redirect('home/tasks');
+         }
+       
         }
-      if(request('type')==0){
-        return view('employer.createq',compact('test')); 
-      }
              
     }
     else
@@ -117,6 +130,19 @@ class TestController extends Controller
       return back();
     }
   }
+  public function tasks()
+  {  
+    if(Auth::user()->role == "employer"){
+       $tasks = Auth::user()->tasks()->get();
+       return view('employer.tasks',compact('tasks')); 
+      
+             
+    }
+    else
+    {
+      return back();
+    }
+  }
     public function editSave()
   {  
     $test = Test::where('id','=',request('id'))->first();
@@ -131,10 +157,31 @@ class TestController extends Controller
       return back();
     }
   }
+  public function editSaveTask()
+  {  
+    $task = Task::where('id','=',request('id'))->first();
+    if(Auth::user()->role == "employer" && $task->owner ==  Auth::user()->id){
+        $task->test_name = request('taskname');
+        $task->save();
+        return view('employer.taskdetails',compact('task'));
+                   
+    }
+    else
+    {
+      return back();
+    }
+  }
    public function deleteTest(Test $test)
   {      
     if(Auth::user()->role == "employer" && $test->owner == Auth::user()->id || Auth::user()->role == "admin"){
      Test::where('id',$test->id)->delete();             
+   }
+   return back();
+ }
+ public function deleteTask(Task $task)
+  {      
+    if(Auth::user()->role == "employer" && $task->owner == Auth::user()->id || Auth::user()->role == "admin"){
+     Task::where('id',$task->id)->delete();          
    }
    return back();
  }
@@ -152,6 +199,15 @@ class TestController extends Controller
     if(Auth::user()->role == "employer" && $test->owner == Auth::user()->id || Auth::user()->role == "admin"){
     // $questions = $test->questions()->get();
      return view('employer.testdetails',compact('test'));            
+   }
+   return back();
+ }
+  public function taskDetails(Task $task)
+  {  
+      
+    if(Auth::user()->role == "employer" && $task->owner == Auth::user()->id || Auth::user()->role == "admin"){
+    // $questions = $test->questions()->get();
+     return view('employer.taskdetails',compact('task'));            
    }
    return back();
  }
@@ -220,8 +276,9 @@ class TestController extends Controller
     }
   }
   public function workerTests(){
-     $results = Auth::user()->testsToDo()->where('is_done','!=',1)->orderby('created_at','desc')->get();
-     return view('worker.tests',compact('results'));
+     $tests = Auth::user()->testsToDo()->where('is_done','!=',1)->orderby('created_at','desc')->get();
+     $tasks = Auth::user()->tasksToDo()->where('is_done','!=',1)->orderby('created_at','desc')->get();
+     return view('worker.tests',compact('tests','tasks'));
   }
   public function workerTestsDo(Result $result){
      
@@ -229,11 +286,14 @@ class TestController extends Controller
 
     return view('worker.dotest',compact('questions','result'));
   }
+  public function workerTasksDo(task_files $task_files){
+
+    return view('worker.dotask',compact('task_files'));
+  }
   public function workerTestSave(Result $result){
       $result->answers = request('answers');
       $result->is_done = 1;
       
-      //return $result->answers;
       $test = $result->test;
       $count = 0;
       for($i=0;$i<count($test->questions);$i++)
@@ -273,7 +333,23 @@ class TestController extends Controller
       $msg->save();
      return redirect()->route('home');
   }
+   public function workerTaskUpload(task_files $task_files){
+      $file = request('file');
+      $filename = time() . '.' . $file->getClientOriginalExtension();
+      $path = request('file')->storeAs('files', $filename );
+      $task_files->avatar = $path;
+      $task_files->is_done = 1;
+      $task_files->save();
+
+      $msg = new Message;
+      $msg->from = Auth::user()->id;
+      $msg->to = $task_files->task->owner;
+      $msg->message = "Test completed";
+      $msg->save();
+     return redirect()->route('home');
+  }
 }
+
 
 //TODO -> My Tests -> all tests
 // On click test -> all questions for that test

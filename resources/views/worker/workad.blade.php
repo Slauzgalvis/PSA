@@ -22,16 +22,7 @@
             @foreach($applications as $application)
             @if($workAd->id == $application->workAd->id)
             <li><a href="/home/workad/{{$workAd->id}}/profile/{{$application->id}}" class=""> {{$application->user->name}}</a></li>
-            @if($application->confirmed == false)
-            <form action="/confirm/{{$application->id}}" method="post"> {{csrf_field()}}
-            <input type="hidden" name="msg"  value="Chat room was created">
-            <input type="hidden" name="from" value="{{Auth::user()->id}}">
-            <input type="hidden" name="application" value="{{$application->id}}">
-            <input type="hidden" name="to" value="{{$application->user->id}}">
-            <button type="submit" >Create Chat Room</button>
-            </form>
-            
-            @endif
+           
             @endif
             @endforeach
             @endif
@@ -43,13 +34,12 @@
             @endif
             @endforeach
 
-            @if($applications->isEmpty() or $check==0 and Auth::user()->role == 'worker')
+            @if(($applications->isEmpty() or $check==0) and Auth::user()->role == 'worker')
+            
             <center><a href="/home/workad/{{ $workAd->id }}/apply/{{ Auth::user()->id }}" class="btn btn-success"> Apply </a></center>
             @endif
 
             </div>
-
-            <a href="{{route('chats')}}"> chats </a>
 
 
             

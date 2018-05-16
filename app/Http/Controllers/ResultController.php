@@ -3,13 +3,15 @@
 namespace WorkIT\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use WorkIT\workAd;
 use Auth;
 use WorkIT\applications;
 use WorkIT\User;
 use WorkIT\Message;
 use WorkIT\Result;
-
+use WorkIT\task_files;
+use File;
 
 class ResultController extends Controller
 {
@@ -22,7 +24,9 @@ class ResultController extends Controller
     {
       $tests = Auth::user()->tests()->select('id')->get();
       $results = Result::where('is_done','=',1)->whereIn('test_id',$tests)->orderBy('updated_at','desc')->get();
-      return view('employer.tcompleted',compact('results'));
+      $tasksR = Auth::user()->tasks()->select('id')->get();
+      $tasks = task_files::where('is_done','=',1)->whereIn('task_id',$tasksR)->orderBy('updated_at','desc')->get();
+      return view('employer.tcompleted',compact('results','tasks'));
     }
     public function single(Result $result)
     {
@@ -56,4 +60,19 @@ class ResultController extends Controller
        return view('employer.resultsingle',compact('questions','result','array'));
       //return view('employer.resultsingle',compact('answers1','answers2'));
     }
+    public function getTask(task_files $task_files)
+    {
+
+      return view('employer.tfiles',compact('task_files'));
+    }
+    public function getDownload(task_files $task_files)
+{
+    $file= storage_path(). '/app/' . $task_files->avatar;
+
+    $ext = File::extension($file);
+
+    $name = $task_files->user->name . '.' . $ext;
+
+    return Response::download($file, $name);
+}
 }

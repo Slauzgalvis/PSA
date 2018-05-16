@@ -53,7 +53,9 @@ Route::get('/notifications','HomeController@notifications')->name('notifications
 Route::get('/update','HomeController@update')->name('update');
 
 Route::get('/home/create/test', 'TestController@index');
+
 Route::post('/home/create/test', 'TestController@createTest');
+
 Route::get('/home/tests/', 'TestController@tests');
 
 Route::get('/home/create/test/addquestion/{testid}', 'TestController@addQ');
@@ -77,13 +79,37 @@ Route::get('/home/applicants/', 'WorkAdController@applicants');
 Route::get('/home/applicants/assign/{user}', 'WorkAdController@assign');
 Route::post('/home/applicants/assign/{user}', 'WorkAdController@assignCreate');
 
+Route::get('/home/applicants/assignTask/{user}', 'WorkAdController@assignTask');
+Route::post('/home/applicants/assignTask/{user}', 'WorkAdController@assignCreateTask');
+
+
+
+
+
 Route::get('/home/mytests/', 'TestController@workerTests');
-
-
 Route::get('/home/mytests/{result}', 'TestController@workerTestsDo');
 Route::post('/home/mytests/{result}', 'TestController@workerTestSave');
-
 Route::get('/home/results/', 'ResultController@index');
 Route::get('/home/results/{result}', 'ResultController@single');
 
+Route::get('/home/mytests/task/{task_files}', 'TestController@workerTasksDo');
+Route::post('/home/mytests/task/{task_files}', 'TestController@workerTaskUpload');
+
+Route::get('/home/results/tasks/{task_files}', 'ResultController@getTask');
+Route::get('/home/results/tasks/download/{task_files}', 'ResultController@getDownload');
+
+
+
+
+
 Route::post('/updateMsg','MessageController@updateMsg')->name('updateMsg');
+
+
+
+
+Route::get('/home/tasks/', 'TestController@tasks');
+
+Route::get('/home/tasks/{task}', 'TestController@taskDetails');
+Route::post('/home/tasks/{task}', 'TestController@editSaveTask');
+
+Route::get('/home/tasks/delete/{task}', 'TestController@deleteTask');
