@@ -25,7 +25,8 @@
             <input type="hidden" name="application" value="{{$application->id}}">
             <button type="submit" class="btn btn-danger">Decline</button>
             </form>
-            <a href="/home/applicants/assign/{{$application->user->id}}" class="btn btn-primary">Tasks</a>
+            <a href="/home/applicants/assign/{{$application->user->id}}" class="btn btn-primary">Tests</a>
+             <a href="/home/applicants/assignTask/{{$application->user->id}}" class="btn btn-primary">Tasks</a>
             <a href="/sendMessage/chat/{{$application->user->id}}" class="btn btn-success">Message</a>
         </td>
         </td>

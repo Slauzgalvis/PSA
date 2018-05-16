@@ -10,6 +10,7 @@ use WorkIT\applications;
 use WorkIT\Test;
 use WorkIT\Result;
 use WorkIT\Message;
+use WorkIT\task_files;
 class WorkAdController extends Controller
 {
 
@@ -176,6 +177,11 @@ class WorkAdController extends Controller
     $tests = Auth::user()->tests()->whereNotIn('id',$results)->get();
    return view('employer.testsforuser',compact('tests','user'));
  }
+ public function assignTask(User $user){
+    $results = $user->tasksToDo()->select('task_id')->distinct()->get();
+    $tests = Auth::user()->tasks()->whereNotIn('id',$results)->get();
+   return view('employer.testsforuser',compact('tests','user'));
+ }
 public function assignCreate(User $user){
    foreach (request('tests') as $test)
    {
@@ -187,6 +193,21 @@ public function assignCreate(User $user){
     $msg->from = Auth::user()->id;
     $msg->to = request('uid');
     $msg->message = "New test assigned";
+    $msg->save();
+   }
+   return redirect()->back();
+ }
+ public function assignCreateTask(User $user){
+   foreach (request('tests') as $task)
+   {
+    $result = new task_files;
+    $result->user_id = request('uid');
+    $result->task_id = $task;
+    $result->save();
+    $msg = new Message;
+    $msg->from = Auth::user()->id;
+    $msg->to = request('uid');
+    $msg->message = "New task assigned";
     $msg->save();
    }
    return redirect()->back();

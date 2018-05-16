@@ -113,8 +113,14 @@ class MessageController extends Controller
     $users = User::WhereIn('id',$unique)->get();
     $chats = Message::whereIn('to',$unique)->orWhereIn('from', $unique)->where('to', Auth::user()->id)->orWhere('from','=', Auth::user()->id)->get();
     
-    $user1 = $users[0];
-    return view('message',compact('users', 'chats','user1'));
+    if(count($users)>0){
+      $user1 = $users[0];
+      return view('message',compact('users', 'chats','user1'));
+    }
+    else{
+      return back();
+    }
+    
 
   }
    public function chat1o1(User $user){

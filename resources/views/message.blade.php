@@ -1,26 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<!--
-					
-				</ul>
-				</nav>
-					<form action="{{route('message')}}" method="post"> {{csrf_field()}}
-            
-            Message:
-            <input type="text" id="messagefield" name="msg"  />
-            <button id="sendmsg" type="submit" >Send</button>
-            </form>
-					
 
-
-				</div> 
-			</div>
-			<a href="{{ route('home') }}" class="btn btn-primary"> Back </a>
-
-		</div>
-	</div>
-</div>-->
 <div class="row justify-content-center" >
 <div class="col-md-9" style="padding-right: 0">
 <div class="panel panel-primary" style="border:0px">
