@@ -58,22 +58,41 @@ class TestController extends Controller
   {  
 
     if(Auth::user()->role == "employer"){
-
+      $errmsg = [];
         if(request('q')!=null){
+            $test = Test::where('id', '=', request('testid'))->first();
             $question = new Question;
             $question->test_id = request('testid');
             $question->type = request('qtype');
             $question->question = request('question');
             $question->answers = (request('answer'));
-            $correct = [0,0,0,0,0];
-            for($i = 0; $i< count(request('iscorrect'));$i++){
-              $correct[request('iscorrect')[$i]-1] = request('iscorrect')[$i]; 
+            if(request('qtype') !=0)
+            {
+              if(!(request('answer')))
+              {
+                array_push($errmsg,"Answer count can't be 0 for choise questions");
+              }
+              else if(!(request('iscorrect')))
+              {
+                 array_push($errmsg,"There must be at least one correct answer");
+              }
+              else
+              {
+                 $correct = [0,0,0,0,0];
+                for($i = 0; $i< count(request('iscorrect'));$i++)
+                {
+                $correct[request('iscorrect')[$i]-1] = request('iscorrect')[$i]; 
+                }
+                $question->correct = $correct;
+                
+              }
             }
-            $question->correct = $correct;
-
-            $question->save();
-            $test = Test::where('id', '=', request('testid'))->first();
-            return view('employer.createq',compact('test'));
+            if(count($errmsg)==0){
+              $question->save();
+            }
+           
+                
+            return view('employer.createq',compact('test','errmsg'));
         }
         else{
          if(request('type')==0){
@@ -82,7 +101,8 @@ class TestController extends Controller
           $test->test_name = request('testname');
           $test->type = request('type');
           $test->save();
-          return view('employer.createq',compact('test')); 
+          return view('employer.createq',compact('test','errmsg'));
+        
          }
          else
          {
@@ -103,12 +123,13 @@ class TestController extends Controller
   } 
  public function addQuestion()
   {  
+     $errmsg = [];
     if(Auth::user()->role == "employer"){
         $test = Test::where('id', '=', request('testid'));
         return $test;
       if(request('type')==0){
-        return view('employer.createq',compact('test')); 
-      }
+        return view('employer.createq',compact('test','errmsg'));
+        }
              
     }
     else
@@ -245,8 +266,10 @@ class TestController extends Controller
  }
     public function addQuestionToTest(Test $test)
   {  
+     $errmsg = [];
     if(Auth::user()->role == "employer"){
-        return view('employer.createq',compact('test')); 
+        return view('employer.createq',compact('test','errmsg'));
+         
       }
     else
     {
@@ -255,6 +278,7 @@ class TestController extends Controller
   }
   public function addQuestionToTestSave(Test $test)
   {  
+     $errmsg = [];
     if(Auth::user()->role == "employer"){
             $question = new Question;
             $question->test_id = request('testid');
@@ -268,7 +292,8 @@ class TestController extends Controller
             $question->correct = $correct;
 
             $question->save();
-            return view('employer.createq',compact('test'));
+            return view('employer.createq',compact('test','errmsg'));
+        
       }
     else
     {
@@ -333,7 +358,10 @@ class TestController extends Controller
       $msg->save();
      return redirect()->route('home');
   }
-   public function workerTaskUpload(task_files $task_files){
+   public function workerTaskUpload(task_files $task_files, Request $request){
+    $request->validate([
+          'file' => 'required|max:2000|mimes:doc,docx,pdf,zip,7z,txt,rar',
+            ]);
       $file = request('file');
       $filename = time() . '.' . $file->getClientOriginalExtension();
       $path = request('file')->storeAs('files', $filename );

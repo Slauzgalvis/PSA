@@ -11,7 +11,7 @@
     <a href="/home/results/tasks/download/{{$task_files->id}}" class="btn btn-success" style="margin-top:10px; width: 20%;"> Download </a><br>
 
 
-
+    
     <a href="/home" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Back </a>
     </div>
 @endsection

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div>
+<div class="container">
 
 
 <table style="text-align: center; width:100%; border-style: solid; background-color:white">
@@ -33,6 +33,7 @@
     </tr>
         @endforeach
         </table>
+        <a href="/home" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Back </a>
 
 
 @endsection

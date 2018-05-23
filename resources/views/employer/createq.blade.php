@@ -8,7 +8,7 @@
 </div>
 
 <div class="container">
-    
+     
      <form action="" method="post" enctype="multipart/form-data"> {{csrf_field()}}
     <div class="row" style="background-color:#F5F3EE;border-radius:5px">
         <div class="col-md-12" style="margin-top:5px">
@@ -30,7 +30,14 @@
   <input name="_token" type="hidden" value="{{ csrf_token() }}">
   <input name="testid" type="hidden" value="{{$test->id}}">
   <input name="q" type="hidden" value="1">
+  <div>
   <p id="">Question</p>
+  @if(count($errmsg)>0)
+  @foreach($errmsg as $err)
+  <p style="color:red;"> ERROR : {{$err}} </p>
+  @endforeach
+  @endif
+</div>
   <table class="table table-bordered" id="add_Q">
     <tr>
       <td>

@@ -72,7 +72,7 @@ Route::get('/home/tests/question/{question}', 'TestController@editQuestion');
 Route::post('/home/tests/question/{question}', 'TestController@saveEditQuestion');
 
 Route::get('/home/tests/{test}/add', 'TestController@addQuestionToTest');
-Route::post('/home/tests/{test}/add', 'TestController@addQuestionToTestSave');
+Route::post('/home/tests/{test}/add', 'TestController@createTest');
 
 Route::get('/home/applicants/', 'WorkAdController@applicants');
 

@@ -11,7 +11,7 @@
     
      <form action="" method="post" enctype="multipart/form-data"> {{csrf_field()}}
     <div class="row" style="background-color:#F5F3EE;border-radius:5px">
-
+            
         <div class="col-md-12" style="margin-top:5px">
                 <h1 style="text-align:center;font-weight: bold;">Add Question</h1>
             </div>
@@ -24,7 +24,7 @@
         </ul>
     </div>
 @endif           
- 
+
 
 <form name="add_test" id="add_test">
 

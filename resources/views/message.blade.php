@@ -66,6 +66,7 @@
 
 </div>
 </div>
+ <a href="/home" class="btn btn-primary" style="margin-top:10px; width: 20%;"> Back </a>
 <script>
 $(document).ready(function(){
 	autoReloadMsg();

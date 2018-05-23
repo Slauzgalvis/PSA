@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<div>
+<div class="container" style="text-align: center;">
 
 @if(count($tests)>0)
-TESTS
+<strong>TESTS</strong>
 <table style="text-align: center; width:100%; border-style: solid; background-color:white">
             <tr>
                 <th>ID</th>
@@ -25,7 +25,7 @@ TESTS
         </table>
 @endif
 @if(count($tasks)>0)
-TASKS
+<strong>TASKS</strong>
         <table style="text-align: center; width:100%; border-style: solid; background-color:white">
             <tr>
                 <th>ID</th>
